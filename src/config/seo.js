@@ -1,78 +1,95 @@
 export const siteMetadata = {
-  name: "RunningRabbit Landing Platform",
-  baseUrl: "https://example.com",
+  name: "강남 달리는토끼 공식 홈페이지 | Running Rabbit Official",
+  baseUrl: "https://runningrabbit.example.com",
   language: "ko",
-  description: "검색엔진 최적화에 초점을 맞춘 원페이지 서비스 플랫폼의 기본 구조입니다.",
+  description:
+    "강남 달토 · 달리는토끼 공식 홈페이지. 프리미엄 라운지 & 카라오케 공간, 투명한 예약, 합법적이고 안전한 운영을 안내합니다.",
   keywords: [
-    "SEO",
-    "원페이지",
-    "랜딩페이지",
-    "검색엔진 최적화",
+    "강남 달토",
+    "강남 달리는토끼",
+    "Running Rabbit",
+    "프리미엄 라운지",
+    "강남 라운지",
+    "공식 홈페이지",
   ],
 };
 
 export const navigationLinks = [
-  { label: "서비스", href: "#services" },
-  { label: "기능", href: "#features" },
-  { label: "사례", href: "#cases" },
-  { label: "연락처", href: "#contact" },
+  { label: "브랜드", href: "#brand" },
+  { label: "공간", href: "#spaces" },
+  { label: "라운지 경험", href: "#experience" },
+  { label: "예약 안내", href: "#contact" },
+  { label: "운영 정책", href: "#policy" },
 ];
 
 export const heroContent = {
-  heading: "검색엔진을 사로잡는 단일 페이지",
-  subheading: "빠른 로딩, 명확한 정보 구조, 풍부한 메타 데이터로 검색 결과 경쟁력을 높여보세요.",
-  cta: { label: "무료 컨설팅 받기", href: "#contact" },
+  heading: "강남 달토 · 달리는토끼 공식 홈페이지",
+  subheading:
+    "프리미엄 라운지 & 카라오케 브랜드 \"Running Rabbit\"의 공간, 예약, 운영 철학을 한눈에 확인하세요.",
+  cta: { label: "예약·문의하기", href: "#contact" },
 };
 
 export const sections = [
   {
-    id: "services",
-    title: "핵심 서비스",
+    id: "brand",
+    title: "브랜드 아이덴티티",
     summary:
-      "검색 의도를 반영한 키워드 리서치, 스키마 마크업, 콘텐츠 설계까지 원스톱으로 제공합니다.",
+      "강남에서 주목받는 프리미엄 라운지 & 카라오케 브랜드, 달토·달리는토끼(Running Rabbit)의 공식 정보 허브입니다.",
     bullets: [
-      "키워드 전략 및 검색 의도 매핑",
-      "SEO 친화적 정보 구조 및 카피라이팅",
-      "핵심 전환을 향한 콜투액션 배치",
+      "세련된 라운지 무드와 감각적인 조명 설계",
+      "합법·건전 운영을 지향하는 공식 채널",
+      "브랜드 스토리와 공간 컨셉을 투명하게 안내",
     ],
   },
   {
-    id: "features",
-    title: "플랫폼 특징",
+    id: "spaces",
+    title: "공간 & 시설",
     summary:
-      "테크니컬 SEO를 위한 구조화 데이터, 메타 태그, 빠른 성능을 위한 기본 설정을 포함합니다.",
+      "1~10인 프라이빗 룸부터 단체 룸까지, 목적에 맞춰 선택할 수 있는 다양한 공간을 제공합니다.",
     bullets: [
-      "Open Graph / 트위터 카드 기본값",
-      "웹 접근성과 코어 웹 바이탈 개선 지향 구조",
-      "명시적인 사이트맵과 로봇 정책",
+      "프리미엄 사운드 & 무드 조명 커스터마이즈",
+      "라운지형 좌석과 고급 테이블 세팅",
+      "간단한 다과와 음료를 포함한 기본 케어",
     ],
   },
   {
-    id: "cases",
-    title: "성과 사례",
-    summary: "검색 순위 향상과 전환 증대를 경험한 브랜드들의 사례를 소개합니다.",
+    id: "experience",
+    title: "라운지 경험",
+    summary:
+      "품격 있는 음악과 편안한 좌석, 프라이버시 중심의 동선 설계로 누구나 즐길 수 있는 공간을 지향합니다.",
     bullets: [
-      "3개월 내 주요 키워드 Top3 진입",
-      "CTR 28% 향상 및 전환율 1.8배 증가",
-      "콘텐츠 재정비 후 체류시간 42% 증가",
+      "요청 분위기에 맞춘 음향·조명 세팅",
+      "친구 모임, 비즈니스 미팅, 축하 이벤트에 최적화",
+      "전담 매니저의 세심한 동선 케어와 응대",
     ],
   },
   {
     id: "contact",
-    title: "문의하기",
-    summary: "프로젝트 목표와 산업군을 알려주시면, 맞춤형 제안서를 보내드립니다.",
+    title: "예약 & 문의",
+    summary: "방문 예정 시간, 인원, 원하는 분위기만 알려주시면 최적의 룸과 예상 금액을 안내드립니다.",
     bullets: [
-      "24시간 이내 회신 보장",
-      "산업별 맞춤 벤치마킹 리포트 제공",
-      "세부 일정 및 예상 성과 가이드 공유",
+      "전화·메신저로 24시간 상담", 
+      "사전 예약 시 대기 최소화 및 맞춤 룸 배정",
+      "이벤트/할인 여부 사전 안내로 투명한 비용 고지",
+    ],
+  },
+  {
+    id: "policy",
+    title: "운영 정책",
+    summary:
+      "모든 방문객이 안심할 수 있도록 합법적이고 안전한 운영 원칙을 준수합니다.",
+    bullets: [
+      "불법·유사 성행위 및 미성년자 출입 금지",
+      "CCTV와 보안 인력 기반의 안전 관리(룸 내부 촬영 없음)",
+      "개인정보 보호 및 결제 보안 절차 준수",
     ],
   },
 ];
 
 export const homeMeta = {
-  title: "SEO 원페이지 플랫폼",
+  title: "강남 달토 · 달리는토끼 공식 홈페이지",
   description:
-    "검색엔진을 겨냥한 원페이지 플랫폼 템플릿. 빠른 구축과 안정적인 기술 SEO 설정으로 더 많은 유입을 만드세요.",
+    "Running Rabbit 공식 사이트에서 프리미엄 라운지 & 카라오케 공간, 예약 방법, 합법적 운영 정책을 확인하세요.",
   canonical: `${siteMetadata.baseUrl}/`,
   openGraph: {
     type: "website",
