@@ -1,0 +1,39 @@
+.wf-force-outline-none[tabindex="-1"]:focus {
+  outline: none;
+}
+
+.anti-flicker,
+.anti-flicker * {
+  visibility: hidden !important;
+  opacity: 0 !important;
+}
+
+[data-wf-hidden-variation],
+[data-wf-hidden-variation] * {
+  display: none !important;
+}
+
+.body {
+  word-break: keep-all;
+}
+
+.text-gradient {
+  -webkit-text-fill-color: transparent;
+  text-fill-color: transparent;
+  background-size: 500% auto;
+  animation: gradientMove 3s ease-in-out infinite alternate;
+}
+
+@keyframes gradientMove {
+  0% {
+    background-position: 0% 50%;
+  }
+
+  100% {
+    background-position: 100% 50%;
+  }
+}
+
+input {
+  color-scheme: dark;
+}
