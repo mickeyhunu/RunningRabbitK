@@ -6,7 +6,7 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
 export const renderHomePage = (_req, res) => {
-  res.sendFile(path.join(__dirname, "../views/home.html"));
+  res.sendFile(path.join(__dirname, "../views/pages/home.html"));
 };
 
 export const renderSitemap = (_req, res) => {

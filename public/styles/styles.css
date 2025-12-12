@@ -68,6 +68,22 @@ body {
   filter: drop-shadow(0 0 12px rgba(255, 79, 179, 0.6));
 }
 
+.brand-text {
+  display: flex;
+  flex-direction: column;
+  line-height: 1.2;
+}
+
+.brand-name {
+  color: #fff;
+  font-size: 1.05rem;
+}
+
+.brand-subtitle {
+  color: var(--muted);
+  font-size: 0.9rem;
+}
+
 .nav-list {
   display: flex;
   gap: 1rem;
@@ -142,6 +158,12 @@ h1 {
   margin: 0;
   font-size: clamp(2.6rem, 3.6vw, 3.4rem);
   line-height: 1.1;
+}
+
+h2,
+h3 {
+  margin: 0;
+  color: #fff;
 }
 
 .card-title {
@@ -269,6 +291,15 @@ h1 {
 .info-list strong {
   color: #fff;
   font-size: 1rem;
+}
+
+.info-list a {
+  color: inherit;
+  text-decoration: none;
+}
+
+.info-list a:hover {
+  color: var(--accent);
 }
 
 .card-actions {
