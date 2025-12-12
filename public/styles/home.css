@@ -15,7 +15,7 @@
 
 .body {
   word-break: keep-all;
-  padding-top: 88px;
+  padding-top: 180px;
 }
 
 .text-gradient {
@@ -51,9 +51,9 @@ input {
 .header-inner {
   display: flex;
   align-items: center;
-  justify-content: flex-end;
+  justify-content: center;
   gap: 24px;
-  padding: 16px 24px;
+  padding: 20px 24px;
   position: relative;
 }
 
@@ -62,11 +62,12 @@ input {
   align-items: center;
   position: absolute;
   left: 50%;
-  transform: translateX(-50%);
+  top: 50%;
+  transform: translate(-50%, -50%);
 }
 
 .header-logo {
-  height: 48px;
+  height: 120px;
   width: auto;
   object-fit: contain;
 }
@@ -78,4 +79,5 @@ input {
   right: auto;
   background-color: transparent;
   flex: 1;
+  margin-left: auto;
 }
