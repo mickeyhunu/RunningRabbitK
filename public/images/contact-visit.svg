@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 360" fill="none">
+  <defs>
+    <linearGradient id="grad3" x1="0" x2="1" y1="0" y2="1">
+      <stop stop-color="#5f8bff" offset="0" />
+      <stop stop-color="#ff4fb3" offset="1" />
+    </linearGradient>
+  </defs>
+  <rect width="640" height="360" rx="24" fill="#0f1224" />
+  <rect x="32" y="32" width="576" height="296" rx="20" fill="url(#grad3)" opacity="0.15" />
+  <rect x="90" y="90" width="460" height="200" rx="22" fill="#0f1224" stroke="#e7edff" stroke-width="3" opacity="0.6" />
+  <circle cx="165" cy="170" r="42" fill="#5f8bff" opacity="0.4" />
+  <circle cx="165" cy="170" r="30" fill="#5f8bff" />
+  <path d="M230 210h230" stroke="#ff4fb3" stroke-width="8" stroke-linecap="round" />
+  <rect x="230" y="140" width="230" height="60" rx="12" fill="#5f8bff" opacity="0.15" />
+  <text x="50%" y="46%" fill="#e7edff" font-family="'Pretendard','Noto Sans KR',sans-serif" font-size="26" font-weight="700" text-anchor="middle">현장 방문</text>
+  <text x="50%" y="56%" fill="#b8c1ff" font-family="'Pretendard','Noto Sans KR',sans-serif" font-size="18" text-anchor="middle">안전한 운영 정책을 직접 확인하세요</text>
+</svg>
