@@ -1,40 +1,12 @@
-import {
-  heroContent,
-  homeMeta,
-  navigationLinks,
-  sections,
-  siteMetadata,
-  sitemapEntries,
-} from "../config/seo.js";
+import path from "path";
+import { fileURLToPath } from "url";
+import { siteMetadata, sitemapEntries } from "../config/seo.js";
 
-export const renderHomePage = (req, res) => {
-  const canonical = `${siteMetadata.baseUrl}${req.path === "/" ? "/" : req.path}`;
-  const meta = {
-    ...homeMeta,
-    title: `${homeMeta.title} | ${siteMetadata.name}`,
-    canonical,
-    keywords: siteMetadata.keywords.join(", "),
-    openGraph: {
-      ...homeMeta.openGraph,
-      url: canonical,
-    },
-    structuredData: {
-      ...homeMeta.structuredData,
-      mainEntity: {
-        "@type": "WebPage",
-        name: homeMeta.title,
-        url: canonical,
-      },
-    },
-  };
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
-  res.render("home", {
-    meta,
-    navigationLinks,
-    heroContent,
-    sections,
-    siteMetadata,
-  });
+export const renderHomePage = (_req, res) => {
+  res.sendFile(path.join(__dirname, "../views/home.html"));
 };
 
 export const renderSitemap = (_req, res) => {
