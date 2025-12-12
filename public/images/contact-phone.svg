@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 360" fill="none">
+  <defs>
+    <linearGradient id="grad" x1="0" x2="1" y1="0" y2="1">
+      <stop stop-color="#ff4fb3" offset="0" />
+      <stop stop-color="#5f8bff" offset="1" />
+    </linearGradient>
+  </defs>
+  <rect width="640" height="360" rx="24" fill="#0f1224" />
+  <rect x="32" y="32" width="576" height="296" rx="20" fill="url(#grad)" opacity="0.15" />
+  <rect x="70" y="70" width="500" height="220" rx="18" fill="#0f1224" stroke="#5f8bff" stroke-width="3" opacity="0.6" />
+  <text x="50%" y="50%" fill="#e7edff" font-family="'Pretendard','Noto Sans KR',sans-serif" font-size="26" font-weight="700" text-anchor="middle">전화 상담</text>
+  <text x="50%" y="58%" fill="#b8c1ff" font-family="'Pretendard','Noto Sans KR',sans-serif" font-size="18" text-anchor="middle">예약 가능 시간과 룸 옵션을 안내합니다</text>
+</svg>
