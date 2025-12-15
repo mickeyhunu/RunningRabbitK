@@ -15,7 +15,6 @@
 
 .body {
   word-break: keep-all;
-  padding-top: 88px;
 }
 
 .text-gradient {
@@ -40,7 +39,7 @@ input {
 }
 
 .site-header {
-  position: fixed;
+  position: sticky;
   top: 0;
   left: 0;
   right: 0;
@@ -51,18 +50,14 @@ input {
 .header-inner {
   display: flex;
   align-items: center;
-  justify-content: flex-end;
+  justify-content: space-between;
   gap: 24px;
   padding: 16px 24px;
-  position: relative;
 }
 
 .logo-link {
   display: flex;
   align-items: center;
-  position: absolute;
-  left: 50%;
-  transform: translateX(-50%);
 }
 
 .header-logo {
