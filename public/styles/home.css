@@ -38,39 +38,11 @@ input {
   color-scheme: dark;
 }
 
-.site-header {
+.menu {
   position: sticky;
   top: 0;
   left: 0;
   right: 0;
-  z-index: 1100;
+  z-index: 1000;
   background-color: #000;
-}
-
-.header-inner {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 24px;
-  padding: 16px 24px;
-}
-
-.logo-link {
-  display: flex;
-  align-items: center;
-}
-
-.header-logo {
-  height: 48px;
-  width: auto;
-  object-fit: contain;
-}
-
-.menu {
-  position: static;
-  top: auto;
-  left: auto;
-  right: auto;
-  background-color: transparent;
-  flex: 1;
 }
