@@ -85,7 +85,7 @@ document.querySelectorAll('.faq-btn').forEach(btn => {
 const communityReviewList = document.getElementById('community-review-list');
 const communityReviewStatus = document.getElementById('community-review-status');
 const communityReviewKeywords = ['달토', 'ㄷㅌ'];
-const communityReviewApiUrl = 'https://nightmens.com/api/posts/search-signal';
+const communityReviewApiUrl = '/api/community-reviews';
 
 const normalizeReviewUrl = url => {
   if (!url) return '#reviews';
@@ -110,8 +110,8 @@ const formatReviewDate = value => {
 };
 
 const createReviewCard = review => {
-  const card = document.createElement('article');
-  card.className = 'rv reveal in';
+  const card = document.createElement('a');
+  card.className = 'rv community-review-card reveal in';
   card.href = normalizeReviewUrl(review.url);
   card.target = '_blank';
   card.rel = 'noopener noreferrer';
@@ -142,7 +142,7 @@ const loadCommunityReviews = async () => {
   try {
     const responses = await Promise.all(
       communityReviewKeywords.map(keyword => {
-        const params = new URLSearchParams({ board: '', keyword });
+        const params = new URLSearchParams({ keyword });
         return fetch(`${communityReviewApiUrl}?${params.toString()}`).then(response => {
           if (!response.ok) throw new Error('커뮤니티 후기 API 요청 실패');
           return response.json();

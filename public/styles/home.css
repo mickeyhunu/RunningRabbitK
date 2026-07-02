@@ -513,11 +513,14 @@
     .reviews-header .ornament { justify-content: center; }
     .review-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px,1fr)); gap: 24px; padding-bottom: 50px; }
     .rv {
+      display: block;
+      color: inherit;
+      text-decoration: none;
       background: linear-gradient(145deg, #150a12, #0d0509);
       border: 1px solid rgba(255,255,255,.07);
       padding: 32px 28px; border-radius: 2px;
       position: relative; overflow: hidden;
-      transition: border-color .3s;
+      transition: border-color .3s, transform .3s;
     }
     .rv::before {
       content: '"'; position: absolute; top: -10px; left: 16px;
@@ -525,6 +528,8 @@
       color: rgba(232,25,60,.08); line-height: 1;
     }
     .rv:hover { border-color: rgba(232,25,60,.3); }
+    .community-review-card { display: flex; flex-direction: column; min-height: 260px; cursor: pointer; }
+    .community-review-card:hover { transform: translateY(-4px); }
     .rv-stars { color: var(--gold); font-size: .85rem; letter-spacing: .1em; margin-bottom: 16px; }
     .rv-text { font-size: .875rem; color: var(--smoke); line-height: 1.85; margin-bottom: 20px; position: relative; z-index: 1; }
     .rv-author { font-size: .72rem; letter-spacing: .12em; color: rgba(245,200,66,.6); text-transform: uppercase; }
