@@ -63,14 +63,31 @@ const clearCurrentDocumentAndShowDevToolsOverlay = () => {
   document.close();
 };
 
+const isDevToolsLikelyOpen = () => {
+  const detector = window.devtoolsDetector;
+  if (detector?.isOpen === true || detector?.isOpen === 'true') return true;
+
+  const widthGap = Math.abs((window.outerWidth || 0) - (window.innerWidth || 0));
+  const heightGap = Math.abs((window.outerHeight || 0) - (window.innerHeight || 0));
+  return widthGap > 160 || heightGap > 160;
+};
+
 if (shouldEnablePageProtection) {
   const detector = window.devtoolsDetector;
+
+  if (isDevToolsLikelyOpen()) {
+    clearCurrentDocumentAndShowDevToolsOverlay();
+  }
 
   if (detector?.addListener) {
     detector.addListener(isOpen => {
       if (isOpen) clearCurrentDocumentAndShowDevToolsOverlay();
     });
     detector.launch?.();
+
+    if (isDevToolsLikelyOpen()) {
+      clearCurrentDocumentAndShowDevToolsOverlay();
+    }
   }
 
   ['contextmenu', 'dragstart', 'drop', 'selectstart'].forEach(eventName => {
@@ -85,6 +102,10 @@ if (shouldEnablePageProtection) {
     const selection = window.getSelection?.();
     if (selection && !selection.isCollapsed) selection.removeAllRanges();
   });
+}
+
+if (hasClearedDocumentForDevTools) {
+  throw new Error('Page mount blocked because DevTools is open.');
 }
 
 /* ── Custom Cursor ── */
