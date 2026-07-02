@@ -1,4 +1,6 @@
 /* ── DevTools Block Guard ── */
+const isLocalhostEnvironment = ['localhost', '127.0.0.1', '0.0.0.0', '::1'].includes(window.location.hostname);
+
 const devToolsBlockGuard = (() => {
   const state = { isDevToolsBlocked: false };
   const threshold = 160;
@@ -116,14 +118,16 @@ const devToolsBlockGuard = (() => {
   };
 })();
 
-if (!devToolsBlockGuard.detectAndBlock()) {
-const detectDevToolsOpening = () => {
-  devToolsBlockGuard.detectAndBlock();
-};
+if (isLocalhostEnvironment || !devToolsBlockGuard.detectAndBlock()) {
+if (!isLocalhostEnvironment) {
+  const detectDevToolsOpening = () => {
+    devToolsBlockGuard.detectAndBlock();
+  };
 
-window.addEventListener('resize', detectDevToolsOpening);
-window.addEventListener('focus', detectDevToolsOpening);
-setInterval(detectDevToolsOpening, 1000);
+  window.addEventListener('resize', detectDevToolsOpening);
+  window.addEventListener('focus', detectDevToolsOpening);
+  setInterval(detectDevToolsOpening, 1000);
+}
 
 /* ── Custom Cursor ── */
 const cur = document.getElementById('cursor');
