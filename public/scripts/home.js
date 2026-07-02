@@ -4,10 +4,29 @@ const isAdminPath = /^\/admin(?:\/|$)/.test(window.location.pathname);
 const shouldEnablePageProtection = !isLocalEnv && !isAdminPath;
 
 let hasClearedDocumentForDevTools = false;
+const DEVTOOLS_BLOCKED_STORAGE_KEY = 'running-rabbit-devtools-blocked';
+
+const rememberDevToolsBlockedState = () => {
+  try {
+    window.sessionStorage?.setItem(DEVTOOLS_BLOCKED_STORAGE_KEY, String(Date.now()));
+  } catch (_error) {
+    // Storage can be unavailable in restricted browser modes. The live detector still handles the block.
+  }
+};
+
+const wasDevToolsBlockedBeforeRefresh = () => {
+  try {
+    const blockedAt = Number(window.sessionStorage?.getItem(DEVTOOLS_BLOCKED_STORAGE_KEY));
+    return Number.isFinite(blockedAt) && Date.now() - blockedAt < 5000;
+  } catch (_error) {
+    return false;
+  }
+};
 
 const clearCurrentDocumentAndShowDevToolsOverlay = () => {
   if (hasClearedDocumentForDevTools) return;
   hasClearedDocumentForDevTools = true;
+  rememberDevToolsBlockedState();
 
   document.open();
   document.write(`<!doctype html>
@@ -75,20 +94,27 @@ const isDevToolsLikelyOpen = () => {
 if (shouldEnablePageProtection) {
   const detector = window.devtoolsDetector;
 
-  if (isDevToolsLikelyOpen()) {
-    clearCurrentDocumentAndShowDevToolsOverlay();
-  }
+  const blockIfDevToolsAreOpen = () => {
+    if (wasDevToolsBlockedBeforeRefresh() || isDevToolsLikelyOpen()) {
+      clearCurrentDocumentAndShowDevToolsOverlay();
+    }
+  };
+
+  blockIfDevToolsAreOpen();
+  window.addEventListener('beforeunload', () => {
+    if (isDevToolsLikelyOpen()) rememberDevToolsBlockedState();
+  });
 
   if (detector?.addListener) {
     detector.addListener(isOpen => {
       if (isOpen) clearCurrentDocumentAndShowDevToolsOverlay();
     });
     detector.launch?.();
-
-    if (isDevToolsLikelyOpen()) {
-      clearCurrentDocumentAndShowDevToolsOverlay();
-    }
   }
+
+  requestAnimationFrame(blockIfDevToolsAreOpen);
+  window.addEventListener('load', blockIfDevToolsAreOpen, { once: true });
+  window.addEventListener('resize', blockIfDevToolsAreOpen);
 
   ['contextmenu', 'dragstart', 'drop', 'selectstart'].forEach(eventName => {
     document.addEventListener(eventName, event => event.preventDefault());
