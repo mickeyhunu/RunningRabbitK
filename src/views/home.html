@@ -8,6 +8,95 @@
   <link rel="icon" type="image/svg+xml" href="/favicon.png" />
   <link rel="manifest" href="/site.webmanifest" />
 
+  <script>
+    (() => {
+      const isLocalEnv = ['localhost', '127.0.0.1', '::1'].includes(window.location.hostname);
+      const isAdminPath = /^\/admin(?:\/|$)/.test(window.location.pathname);
+      const shouldEnablePageProtection = !isLocalEnv && !isAdminPath;
+      const blockKey = 'rr-devtools-protection-active';
+      const blockedMarkup = `<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>화면 보호</title>
+  <style>
+    * { box-sizing: border-box; }
+    html, body { margin: 0; min-height: 100%; }
+    body {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 24px;
+      background: rgba(8, 5, 9, 0.98);
+      color: #f8f0d6;
+      text-align: center;
+      font-family: 'Noto Sans KR', system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+    }
+    .devtools-blocked-card {
+      max-width: 520px;
+      width: min(100%, 520px);
+      padding: 34px 28px;
+      border: 1px solid rgba(245, 200, 66, 0.45);
+      border-radius: 22px;
+      background: linear-gradient(145deg, rgba(48, 12, 22, 0.94), rgba(12, 8, 13, 0.96));
+      box-shadow: 0 24px 80px rgba(0, 0, 0, 0.5);
+    }
+    strong {
+      display: block;
+      margin-bottom: 12px;
+      color: #f5c842;
+      font-size: clamp(1.4rem, 4vw, 2rem);
+      letter-spacing: 0.08em;
+    }
+    p {
+      margin: 0;
+      font-size: clamp(1rem, 3vw, 1.2rem);
+      line-height: 1.7;
+    }
+  </style>
+</head>
+<body>
+  <main class="devtools-blocked-card" role="alert" aria-live="assertive">
+    <strong>화면 보호</strong>
+    <p>개발자 도구 사용이 감지되어 기존 화면 내용을 삭제했습니다.</p>
+  </main>
+</body>
+</html>`;
+      const isDevToolsLikelyOpen = () => {
+        const widthGap = Math.abs((window.outerWidth || 0) - (window.innerWidth || 0));
+        const heightGap = Math.abs((window.outerHeight || 0) - (window.innerHeight || 0));
+        return widthGap > 160 || heightGap > 160;
+      };
+      const wasPreviouslyBlocked = (() => {
+        try {
+          return window.sessionStorage.getItem(blockKey) === '1';
+        } catch (_error) {
+          return false;
+        }
+      })();
+      const shouldBlockInitialParse = shouldEnablePageProtection && (wasPreviouslyBlocked || isDevToolsLikelyOpen());
+
+      if (!shouldBlockInitialParse && !isDevToolsLikelyOpen()) {
+        try {
+          window.sessionStorage.removeItem(blockKey);
+        } catch (_error) {}
+      }
+
+      if (shouldBlockInitialParse) {
+        try {
+          window.sessionStorage.setItem(blockKey, '1');
+        } catch (_error) {}
+        document.open();
+        document.write(blockedMarkup);
+        document.close();
+        window.stop?.();
+        throw new Error('Initial page parse blocked because DevTools is open.');
+      }
+    })();
+  </script>
+
   <title>강남 달토 | 달리는토끼 공식홈페이지 – 강남 하이퍼블릭 1위</title>
 <title>강남 달토 | 달리는토끼 공식홈페이지 – 강남 하이퍼블릭 1위</title>
 <meta name="description" content="강남 달토(달리는토끼·런닝래빗) 공식 홈페이지. 역삼동 삼정호텔 지하 4성급 하이퍼블릭 가라오케. 200명+ 매니저 상주, 재방문율 90%, 강남 무료픽업. 대표 지예은 직접 상담 ☎ 010-5733-8710" />
