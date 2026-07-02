@@ -11,7 +11,13 @@ const repairCommand = process.platform === "win32"
 
 function checkModule(moduleName) {
   const entryPoint = require.resolve(moduleName);
+
+  // Confirm the package entry point itself is readable, then load the package so
+  // Node traverses its internal files as it will when the app starts. A corrupt
+  // install can leave the entry point readable while a nested file still throws
+  // EIO during module loading.
   readFileSync(entryPoint);
+  require(moduleName);
 }
 
 try {
