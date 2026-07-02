@@ -6,7 +6,9 @@
   "main": "app.js",
   "scripts": {
     "start": "node app.js",
-    "dev": "node app.js"
+    "dev": "node app.js",
+    "prestart": "node scripts/check-dependencies.js",
+    "doctor": "node scripts/check-dependencies.js"
   },
   "keywords": [
     "seo",
