@@ -3,11 +3,18 @@ const isLocalEnv = window.MNMS_PUBLIC_CONFIG?.isLocalEnv === true;
 const isAdminPath = /^\/admin(?:\/|$)/.test(window.location.pathname);
 const shouldEnablePageProtection = !isLocalEnv && !isAdminPath;
 
+const devToolsBlockedStorageKey = 'mnms-devtools-blocked';
 let hasClearedDocumentForDevTools = false;
 
 const clearCurrentDocumentAndShowDevToolsOverlay = () => {
   if (hasClearedDocumentForDevTools) return;
   hasClearedDocumentForDevTools = true;
+
+  try {
+    window.sessionStorage?.setItem(devToolsBlockedStorageKey, '1');
+  } catch (_error) {
+    // Ignore storage failures and still protect the current document.
+  }
 
   document.open();
   document.write(`<!doctype html>
@@ -74,6 +81,14 @@ const isDevToolsLikelyOpen = () => {
 
 if (shouldEnablePageProtection) {
   const detector = window.devtoolsDetector;
+
+  try {
+    if (window.sessionStorage?.getItem(devToolsBlockedStorageKey) === '1') {
+      clearCurrentDocumentAndShowDevToolsOverlay();
+    }
+  } catch (_error) {
+    // Continue with live DevTools checks if storage is unavailable.
+  }
 
   if (isDevToolsLikelyOpen()) {
     clearCurrentDocumentAndShowDevToolsOverlay();
