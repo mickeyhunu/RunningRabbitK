@@ -160,7 +160,7 @@ const loadCommunityReviews = async () => {
   if (!communityReviewList || !communityReviewStatus) return;
 
   try {
-    const responses = await Promise.all(
+    const responses = await Promise.allSettled(
       communityReviewKeywords.map(keyword => {
         const params = new URLSearchParams({ keyword });
         return fetch(`${communityReviewApiUrl}?${params.toString()}`).then(response => {
@@ -171,7 +171,8 @@ const loadCommunityReviews = async () => {
     );
 
     const reviews = responses
-      .flatMap(data => Array.isArray(data.content) ? data.content : [])
+      .filter(result => result.status === 'fulfilled')
+      .flatMap(result => Array.isArray(result.value.content) ? result.value.content : [])
       .filter(review => review && review.id)
       .filter((review, index, all) => all.findIndex(item => item.id === review.id) === index)
       .sort((a, b) => new Date(b.createdAt || 0) - new Date(a.createdAt || 0))

@@ -34,7 +34,7 @@ export const renderHealth = (_req, res) => {
 const COMMUNITY_REVIEW_API = "https://nightmens.com/api/posts/search-signal";
 const COMMUNITY_REVIEW_KEYWORDS = new Set(["달토", "ㄷㅌ"]);
 
-export const renderCommunityReviews = async (req, res, next) => {
+export const renderCommunityReviews = async (req, res) => {
   try {
     const keyword = typeof req.query.keyword === "string" ? req.query.keyword.trim() : "달토";
     const safeKeyword = COMMUNITY_REVIEW_KEYWORDS.has(keyword) ? keyword : "달토";
@@ -43,6 +43,11 @@ export const renderCommunityReviews = async (req, res, next) => {
     apiUrl.searchParams.set("keyword", safeKeyword);
 
     const response = await fetch(apiUrl);
+    if (response.status === 404) {
+      res.json({ content: [] });
+      return;
+    }
+
     if (!response.ok) {
       const error = new Error("Failed to fetch community reviews");
       error.status = response.status;
@@ -52,6 +57,7 @@ export const renderCommunityReviews = async (req, res, next) => {
     const data = await response.json();
     res.json(data);
   } catch (error) {
-    next(error);
+    console.error("Community reviews fetch failed:", error);
+    res.json({ content: [] });
   }
 };
