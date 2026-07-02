@@ -3,30 +3,11 @@ const isLocalEnv = window.MNMS_PUBLIC_CONFIG?.isLocalEnv === true;
 const isAdminPath = /^\/admin(?:\/|$)/.test(window.location.pathname);
 const shouldEnablePageProtection = !isLocalEnv && !isAdminPath;
 
-const devToolsProtectionSessionKey = 'rr-devtools-protection-active';
-
-const rememberDevToolsProtectionState = () => {
-  try {
-    window.sessionStorage.setItem(devToolsProtectionSessionKey, '1');
-  } catch (_error) {
-    // Storage can be unavailable in privacy-restricted browser contexts.
-  }
-};
-
-const forgetDevToolsProtectionState = () => {
-  try {
-    window.sessionStorage.removeItem(devToolsProtectionSessionKey);
-  } catch (_error) {
-    // Storage can be unavailable in privacy-restricted browser contexts.
-  }
-};
-
 let hasClearedDocumentForDevTools = false;
 
 const clearCurrentDocumentAndShowDevToolsOverlay = () => {
   if (hasClearedDocumentForDevTools) return;
   hasClearedDocumentForDevTools = true;
-  rememberDevToolsProtectionState();
 
   document.open();
   document.write(`<!doctype html>
@@ -96,8 +77,6 @@ if (shouldEnablePageProtection) {
 
   if (isDevToolsLikelyOpen()) {
     clearCurrentDocumentAndShowDevToolsOverlay();
-  } else {
-    forgetDevToolsProtectionState();
   }
 
   if (detector?.addListener) {
