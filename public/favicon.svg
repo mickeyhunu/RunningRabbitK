@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-label="Running Rabbit favicon">
+  <rect width="64" height="64" rx="14" fill="#080509"/>
+  <circle cx="32" cy="35" r="18" fill="#f5c842"/>
+  <path d="M25 24C18 10 20 3 25 2c5-1 10 9 11 20" fill="#f5c842"/>
+  <path d="M39 24C46 10 44 3 39 2c-5-1-10 9-11 20" fill="#f5c842"/>
+  <circle cx="25" cy="34" r="3" fill="#080509"/>
+  <circle cx="39" cy="34" r="3" fill="#080509"/>
+  <path d="M28 43c3 3 5 3 8 0" fill="none" stroke="#080509" stroke-width="3" stroke-linecap="round"/>
+</svg>

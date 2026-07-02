@@ -1,0 +1,15 @@
+{
+  "name": "강남 달토 | Running Rabbit",
+  "short_name": "Running Rabbit",
+  "icons": [
+    {
+      "src": "/favicon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any"
+    }
+  ],
+  "theme_color": "#080509",
+  "background_color": "#080509",
+  "display": "standalone"
+}
