@@ -3,7 +3,7 @@
   "short_name": "Running Rabbit",
   "icons": [
     {
-      "src": "/favicon.svg",
+      "src": "/favicon.png",
       "sizes": "any",
       "type": "image/svg+xml",
       "purpose": "any"
