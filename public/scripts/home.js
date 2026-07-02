@@ -109,12 +109,28 @@ const formatReviewDate = value => {
   return new Intl.DateTimeFormat('ko-KR', { year: 'numeric', month: '2-digit', day: '2-digit' }).format(date);
 };
 
+const openReviewUrl = url => {
+  if (url === '#reviews') {
+    window.location.hash = 'reviews';
+    return;
+  }
+  window.open(url, '_blank', 'noopener,noreferrer');
+};
+
 const createReviewCard = review => {
-  const card = document.createElement('a');
+  const reviewUrl = normalizeReviewUrl(review.url);
+  const card = document.createElement('article');
   card.className = 'rv community-review-card reveal in';
-  card.href = normalizeReviewUrl(review.url);
-  card.target = '_blank';
-  card.rel = 'noopener noreferrer';
+  card.setAttribute('role', 'link');
+  card.setAttribute('tabindex', '0');
+  card.dataset.href = reviewUrl;
+  card.addEventListener('click', () => openReviewUrl(reviewUrl));
+  card.addEventListener('keydown', event => {
+    if (event.key === 'Enter' || event.key === ' ') {
+      event.preventDefault();
+      openReviewUrl(reviewUrl);
+    }
+  });
 
   const date = document.createElement('p');
   date.className = 'community-review-date';
@@ -128,9 +144,13 @@ const createReviewCard = review => {
   content.className = 'community-review-content';
   content.textContent = review.content || '내용을 확인하려면 후기를 클릭해 주세요.';
 
-  const more = document.createElement('span');
+  const more = document.createElement('a');
   more.className = 'community-review-more';
+  more.href = reviewUrl;
+  more.target = '_blank';
+  more.rel = 'noopener noreferrer';
   more.textContent = '후기 자세히 보기 →';
+  more.addEventListener('click', event => event.stopPropagation());
 
   card.append(date, title, content, more);
   return card;

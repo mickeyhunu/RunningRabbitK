@@ -530,6 +530,7 @@
     .rv:hover { border-color: rgba(232,25,60,.3); }
     .community-review-card { display: flex; flex-direction: column; min-height: 260px; cursor: pointer; }
     .community-review-card:hover { transform: translateY(-4px); }
+    .community-review-card:focus-visible { outline: 2px solid var(--gold); outline-offset: 4px; }
     .rv-stars { color: var(--gold); font-size: .85rem; letter-spacing: .1em; margin-bottom: 16px; }
     .rv-text { font-size: .875rem; color: var(--smoke); line-height: 1.85; margin-bottom: 20px; position: relative; z-index: 1; }
     .rv-author { font-size: .72rem; letter-spacing: .12em; color: rgba(245,200,66,.6); text-transform: uppercase; }
@@ -554,7 +555,8 @@
       -webkit-box-orient: vertical;
       overflow: hidden;
     }
-    .community-review-more { margin-top: auto; padding-top: 18px; color: var(--gold); font-size: .72rem; letter-spacing: .12em; text-transform: uppercase; }
+    .community-review-more { margin-top: auto; padding-top: 18px; color: var(--gold); font-size: .72rem; letter-spacing: .12em; text-transform: uppercase; text-decoration: none; }
+    .community-review-more:hover { text-decoration: underline; }
 
     /* ─── INFO ─── */
     .info {
