@@ -80,3 +80,88 @@ document.querySelectorAll('.faq-btn').forEach(btn => {
     if (!isOpen) { item.classList.add('open'); btn.setAttribute('aria-expanded','true'); }
   });
 });
+
+/* ── Community Reviews ── */
+const communityReviewList = document.getElementById('community-review-list');
+const communityReviewStatus = document.getElementById('community-review-status');
+const communityReviewKeywords = ['달토', 'ㄷㅌ'];
+
+const normalizeReviewUrl = url => {
+  if (!url) return '#reviews';
+  try {
+    const parsed = new URL(url, window.location.origin);
+    if (parsed.hostname === 'localhost') {
+      parsed.protocol = 'https:';
+      parsed.hostname = 'nightmens.com';
+      parsed.port = '';
+    }
+    return parsed.href;
+  } catch (_error) {
+    return '#reviews';
+  }
+};
+
+const formatReviewDate = value => {
+  if (!value) return '날짜 미상';
+  const date = new Date(value);
+  if (Number.isNaN(date.getTime())) return '날짜 미상';
+  return new Intl.DateTimeFormat('ko-KR', { year: 'numeric', month: '2-digit', day: '2-digit' }).format(date);
+};
+
+const createReviewCard = review => {
+  const card = document.createElement('a');
+  card.className = 'community-review-card';
+  card.href = normalizeReviewUrl(review.url);
+  card.target = '_blank';
+  card.rel = 'noopener noreferrer';
+
+  const date = document.createElement('p');
+  date.className = 'community-review-date';
+  date.textContent = formatReviewDate(review.createdAt || review.updatedAt);
+
+  const title = document.createElement('h4');
+  title.className = 'community-review-title';
+  title.textContent = review.title || '제목 없는 후기';
+
+  const content = document.createElement('p');
+  content.className = 'community-review-content';
+  content.textContent = review.content || '내용을 확인하려면 후기를 클릭해 주세요.';
+
+  const more = document.createElement('span');
+  more.className = 'community-review-more';
+  more.textContent = '후기 자세히 보기 →';
+
+  card.append(date, title, content, more);
+  return card;
+};
+
+const loadCommunityReviews = async () => {
+  if (!communityReviewList || !communityReviewStatus) return;
+
+  try {
+    const responses = await Promise.all(
+      communityReviewKeywords.map(keyword =>
+        fetch(`/api/community-reviews?keyword=${encodeURIComponent(keyword)}`).then(response => {
+          if (!response.ok) throw new Error('커뮤니티 후기 API 요청 실패');
+          return response.json();
+        })
+      )
+    );
+
+    const reviews = responses
+      .flatMap(data => Array.isArray(data.content) ? data.content : [])
+      .filter(review => review && review.id)
+      .filter((review, index, all) => all.findIndex(item => item.id === review.id) === index)
+      .sort((a, b) => new Date(b.createdAt || 0) - new Date(a.createdAt || 0))
+      .slice(0, 6);
+
+    communityReviewList.replaceChildren(...reviews.map(createReviewCard));
+    communityReviewStatus.textContent = reviews.length ? '' : '등록된 커뮤니티 후기가 없습니다.';
+    communityReviewStatus.classList.toggle('is-hidden', reviews.length > 0);
+  } catch (error) {
+    communityReviewStatus.textContent = '커뮤니티 후기를 불러오지 못했습니다. 잠시 후 다시 확인해 주세요.';
+    console.error(error);
+  }
+};
+
+loadCommunityReviews();

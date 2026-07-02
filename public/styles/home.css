@@ -536,6 +536,61 @@
     .rv-stars { color: var(--gold); font-size: .85rem; letter-spacing: .1em; margin-bottom: 16px; }
     .rv-text { font-size: .875rem; color: var(--smoke); line-height: 1.85; margin-bottom: 20px; position: relative; z-index: 1; }
     .rv-author { font-size: .72rem; letter-spacing: .12em; color: rgba(245,200,66,.6); text-transform: uppercase; }
+    .community-reviews {
+      margin-top: 36px;
+      padding: 34px;
+      background: linear-gradient(145deg, rgba(21,10,18,.88), rgba(13,5,9,.94));
+      border: 1px solid rgba(245,200,66,.14);
+      box-shadow: 0 20px 60px rgba(0,0,0,.25);
+    }
+    .community-reviews-head { text-align: center; margin-bottom: 24px; }
+    .community-reviews-title {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(1.35rem, 3vw, 2rem);
+      color: var(--cream);
+      margin: 8px 0 10px;
+    }
+    .community-reviews-desc { color: var(--smoke); font-size: .86rem; line-height: 1.7; }
+    .community-review-status {
+      padding: 18px;
+      border: 1px solid rgba(255,255,255,.06);
+      color: rgba(255,255,255,.72);
+      text-align: center;
+      font-size: .85rem;
+      background: rgba(255,255,255,.025);
+    }
+    .community-review-status.is-hidden { display: none; }
+    .community-review-list { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px,1fr)); gap: 18px; }
+    .community-review-card {
+      display: flex;
+      flex-direction: column;
+      min-height: 210px;
+      padding: 24px;
+      color: inherit;
+      text-decoration: none;
+      background: rgba(255,255,255,.035);
+      border: 1px solid rgba(255,255,255,.07);
+      transition: transform .25s ease, border-color .25s ease, background .25s ease;
+    }
+    .community-review-card:hover,
+    .community-review-card:focus-visible {
+      transform: translateY(-4px);
+      border-color: rgba(232,25,60,.4);
+      background: rgba(232,25,60,.06);
+      outline: none;
+    }
+    .community-review-date { font-size: .68rem; letter-spacing: .14em; text-transform: uppercase; color: rgba(245,200,66,.72); margin-bottom: 12px; }
+    .community-review-title { color: var(--cream); font-size: 1rem; line-height: 1.5; margin-bottom: 12px; }
+    .community-review-content {
+      color: var(--smoke);
+      font-size: .82rem;
+      line-height: 1.75;
+      display: -webkit-box;
+      -webkit-line-clamp: 4;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+    }
+    .community-review-more { margin-top: auto; padding-top: 18px; color: var(--gold); font-size: .72rem; letter-spacing: .12em; text-transform: uppercase; }
 
     /* ─── INFO ─── */
     .info {
