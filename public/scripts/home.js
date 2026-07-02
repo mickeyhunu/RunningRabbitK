@@ -189,3 +189,51 @@ const loadCommunityReviews = async () => {
 };
 
 loadCommunityReviews();
+
+/* ── Kakao Location Map ── */
+const initKakaoMap = () => {
+  const mapElement = document.getElementById('kakao-map');
+  if (!mapElement) return;
+
+  const fallback = mapElement.querySelector('.map-fallback');
+  const address = mapElement.dataset.address || '서울특별시 강남구 봉은사로 150';
+  const placeName = mapElement.dataset.placeName || '강남달토 (달리는토끼)';
+
+  const showMapFallback = message => {
+    if (fallback) fallback.textContent = message;
+  };
+
+  if (!window.kakao || !window.kakao.maps) {
+    showMapFallback('카카오 지도 스크립트를 불러오지 못했습니다. 지도 링크를 이용해 주세요.');
+    return;
+  }
+
+  window.kakao.maps.load(() => {
+    const geocoder = new window.kakao.maps.services.Geocoder();
+
+    geocoder.addressSearch(address, (result, status) => {
+      if (status !== window.kakao.maps.services.Status.OK || !result.length) {
+        showMapFallback('주소 좌표를 찾지 못했습니다. 지도 링크를 이용해 주세요.');
+        return;
+      }
+
+      const coords = new window.kakao.maps.LatLng(Number(result[0].y), Number(result[0].x));
+      const map = new window.kakao.maps.Map(mapElement, {
+        center: coords,
+        level: 3,
+      });
+      const marker = new window.kakao.maps.Marker({
+        map,
+        position: coords,
+      });
+      const infoWindow = new window.kakao.maps.InfoWindow({
+        content: `<div style="padding:8px 12px;font-size:13px;color:#111;white-space:nowrap;">${placeName}</div>`,
+      });
+
+      infoWindow.open(map, marker);
+      window.addEventListener('resize', () => map.setCenter(coords));
+    });
+  });
+};
+
+initKakaoMap();
