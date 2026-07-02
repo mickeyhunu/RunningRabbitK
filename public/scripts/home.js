@@ -1,3 +1,89 @@
+/* ── DevTools Protection ── */
+const isLocalEnv = window.MNMS_PUBLIC_CONFIG?.isLocalEnv === true;
+const isAdminPath = /^\/admin(?:\/|$)/.test(window.location.pathname);
+const shouldEnablePageProtection = !isLocalEnv && !isAdminPath;
+
+const showDevToolsBlockedScreen = () => {
+  if (document.getElementById('devtools-blocked-screen')) return;
+
+  const blockedScreen = document.createElement('div');
+  blockedScreen.id = 'devtools-blocked-screen';
+  blockedScreen.setAttribute('role', 'alert');
+  blockedScreen.setAttribute('aria-live', 'assertive');
+  blockedScreen.innerHTML = `
+    <div class="devtools-blocked-card">
+      <strong>화면 보호</strong>
+      <p>개발자 도구 사용이 감지되어 화면을 보호합니다</p>
+    </div>
+  `;
+  Object.assign(blockedScreen.style, {
+    position: 'fixed',
+    inset: '0',
+    zIndex: '2147483647',
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    padding: '24px',
+    background: 'rgba(8, 5, 9, 0.98)',
+    color: '#f8f0d6',
+    textAlign: 'center',
+    fontFamily: "'Noto Sans KR', sans-serif",
+  });
+
+  const style = document.createElement('style');
+  style.id = 'devtools-blocked-screen-style';
+  style.textContent = `
+    #devtools-blocked-screen .devtools-blocked-card {
+      max-width: 520px;
+      width: min(100%, 520px);
+      padding: 34px 28px;
+      border: 1px solid rgba(245, 200, 66, 0.45);
+      border-radius: 22px;
+      background: linear-gradient(145deg, rgba(48, 12, 22, 0.94), rgba(12, 8, 13, 0.96));
+      box-shadow: 0 24px 80px rgba(0, 0, 0, 0.5);
+    }
+    #devtools-blocked-screen strong {
+      display: block;
+      margin-bottom: 12px;
+      color: #f5c842;
+      font-size: clamp(1.4rem, 4vw, 2rem);
+      letter-spacing: 0.08em;
+    }
+    #devtools-blocked-screen p {
+      margin: 0;
+      font-size: clamp(1rem, 3vw, 1.2rem);
+      line-height: 1.7;
+    }
+  `;
+
+  document.head.appendChild(style);
+  document.body.appendChild(blockedScreen);
+};
+
+if (shouldEnablePageProtection) {
+  const detector = window.devtoolsDetector;
+
+  if (detector?.addListener) {
+    detector.addListener(isOpen => {
+      if (isOpen) showDevToolsBlockedScreen();
+    });
+    detector.launch?.();
+  }
+
+  ['contextmenu', 'dragstart', 'drop', 'selectstart'].forEach(eventName => {
+    document.addEventListener(eventName, event => event.preventDefault());
+  });
+
+  document.addEventListener('mousedown', event => {
+    if (event.detail > 1) event.preventDefault();
+  });
+
+  document.addEventListener('selectionchange', () => {
+    const selection = window.getSelection?.();
+    if (selection && !selection.isCollapsed) selection.removeAllRanges();
+  });
+}
+
 /* ── Custom Cursor ── */
 const cur = document.getElementById('cursor');
 const ring = document.getElementById('cursor-ring');
