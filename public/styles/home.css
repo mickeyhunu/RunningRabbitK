@@ -55,7 +55,7 @@
       position: fixed; top: 0; left: 0; right: 0; z-index: 500;
       display: flex; align-items: center; justify-content: space-between;
       padding: 0 48px;
-      height: 72px;
+      height: 40px;
       background: linear-gradient(to bottom, rgba(8,5,9,.95) 0%, transparent 100%);
     }
     nav::after {
@@ -82,16 +82,40 @@
     }
     .nav-links a:hover { color: var(--gold-l); }
     .nav-links a:hover::after { width: 100%; }
-    .nav-tel {
-      background: linear-gradient(135deg, var(--ruby), var(--ruby-d));
-      color: #fff; font-size: .78rem; font-weight: 500; letter-spacing: .1em;
-      padding: 10px 24px; border-radius: 2px;
-      text-decoration: none; border: 1px solid rgba(232,25,60,.4);
-      box-shadow: 0 0 20px rgba(232,25,60,.35), inset 0 1px 0 rgba(255,255,255,.1);
-      transition: box-shadow .25s, transform .2s;
-    }
-    .nav-tel:hover { box-shadow: 0 0 36px rgba(232,25,60,.7), inset 0 1px 0 rgba(255,255,255,.2); transform: translateY(-1px); }
 
+        /* ─── SUB NAV ─── */
+    subnav {
+      position: fixed; top: 41px; left: 0; right: 0; z-index: 500;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 0 48px;
+      height: 60px;
+      background: linear-gradient(to bottom, rgba(8,5,9,.95) 0%, transparent 100%);
+    }
+    subnav::after {
+      content: '';
+      position: absolute; bottom: 0; left: 48px; right: 48px; height: 1px;
+      background: linear-gradient(to right, transparent, rgba(245,200,66,.3), transparent);
+    }
+    .subnav-logo {
+      font-family: 'Cinzel Decorative', serif;
+      font-size: .9rem; font-weight: 700; letter-spacing: .15em;
+      text-decoration: none;
+      background: linear-gradient(135deg, var(--gold-l), var(--gold), var(--gold-d));
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+    }
+    .subnav-links { display: flex; gap: 36px; list-style: none; }
+    .subnav-links a {
+      text-decoration: none; color: var(--smoke);
+      font-size: .72rem; letter-spacing: .18em; text-transform: uppercase;
+      position: relative; transition: color .2s;
+    }
+    .subnav-links a::after {
+      content: ''; position: absolute; bottom: -4px; left: 0; width: 0; height: 1px;
+      background: var(--gold); transition: width .3s;
+    }
+    .subnav-links a:hover { color: var(--gold-l); }
+    .subnav-links a:hover::after { width: 100%; }
+   
     /* ─── HERO ─── */
     .hero {
       position: relative; min-height: 100vh;
