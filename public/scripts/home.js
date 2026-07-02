@@ -4,10 +4,45 @@ const isAdminPath = /^\/admin(?:\/|$)/.test(window.location.pathname);
 const shouldEnablePageProtection = !isLocalEnv && !isAdminPath;
 
 let hasClearedDocumentForDevTools = false;
+const devToolsRefreshBlockStorageKey = 'running-rabbit-devtools-refresh-blocked-until';
+const devToolsRefreshBlockDurationMs = 10_000;
+
+const getCurrentTime = () => Date.now();
+
+const rememberDevToolsBlockForRefresh = () => {
+  try {
+    window.sessionStorage?.setItem(
+      devToolsRefreshBlockStorageKey,
+      String(getCurrentTime() + devToolsRefreshBlockDurationMs)
+    );
+  } catch (_error) {
+    // Storage can be unavailable in private or restricted contexts.
+  }
+};
+
+const clearRememberedDevToolsBlock = () => {
+  try {
+    window.sessionStorage?.removeItem(devToolsRefreshBlockStorageKey);
+  } catch (_error) {
+    // Storage can be unavailable in private or restricted contexts.
+  }
+};
+
+const hasRememberedDevToolsBlockForRefresh = () => {
+  try {
+    const blockedUntil = Number(window.sessionStorage?.getItem(devToolsRefreshBlockStorageKey));
+    if (Number.isFinite(blockedUntil) && blockedUntil > getCurrentTime()) return true;
+    clearRememberedDevToolsBlock();
+  } catch (_error) {
+    // Storage can be unavailable in private or restricted contexts.
+  }
+  return false;
+};
 
 const clearCurrentDocumentAndShowDevToolsOverlay = () => {
   if (hasClearedDocumentForDevTools) return;
   hasClearedDocumentForDevTools = true;
+  rememberDevToolsBlockForRefresh();
 
   document.open();
   document.write(`<!doctype html>
@@ -75,8 +110,10 @@ const isDevToolsLikelyOpen = () => {
 if (shouldEnablePageProtection) {
   const detector = window.devtoolsDetector;
 
-  if (isDevToolsLikelyOpen()) {
+  if (hasRememberedDevToolsBlockForRefresh() || isDevToolsLikelyOpen()) {
     clearCurrentDocumentAndShowDevToolsOverlay();
+  } else {
+    clearRememberedDevToolsBlock();
   }
 
   if (detector?.addListener) {
@@ -85,10 +122,16 @@ if (shouldEnablePageProtection) {
     });
     detector.launch?.();
 
-    if (isDevToolsLikelyOpen()) {
+    if (hasRememberedDevToolsBlockForRefresh() || isDevToolsLikelyOpen()) {
       clearCurrentDocumentAndShowDevToolsOverlay();
     }
   }
+
+  window.addEventListener('pagehide', () => {
+    if (isDevToolsLikelyOpen()) {
+      rememberDevToolsBlockForRefresh();
+    }
+  });
 
   ['contextmenu', 'dragstart', 'drop', 'selectstart'].forEach(eventName => {
     document.addEventListener(eventName, event => event.preventDefault());
