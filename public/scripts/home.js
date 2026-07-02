@@ -1,3 +1,130 @@
+/* ── DevTools Block Guard ── */
+const devToolsBlockGuard = (() => {
+  const state = { isDevToolsBlocked: false };
+  const threshold = 160;
+
+  const recordBlockedState = () => {
+    state.isDevToolsBlocked = true;
+    window.isDevToolsBlocked = true;
+    window.__isDevToolsBlocked = true;
+    document.documentElement.dataset.devToolsBlocked = 'true';
+
+    try {
+      sessionStorage.setItem('isDevToolsBlocked', 'true');
+    } catch (_error) {
+      // Storage may be unavailable in privacy-restricted contexts.
+    }
+  };
+
+  const isDetected = () => (
+    window.outerWidth - window.innerWidth > threshold
+    || window.outerHeight - window.innerHeight > threshold
+  );
+
+  const createOverlay = () => {
+    const overlay = document.createElement('main');
+    overlay.className = 'devtools-block-overlay';
+    overlay.setAttribute('role', 'alert');
+    overlay.setAttribute('aria-live', 'assertive');
+
+    const panel = document.createElement('section');
+    panel.className = 'devtools-block-panel';
+
+    const title = document.createElement('h1');
+    title.textContent = '접근이 일시적으로 제한되었습니다';
+
+    const message = document.createElement('p');
+    message.textContent = '안전한 이용을 위해 개발자도구가 감지된 상태에서는 페이지를 표시할 수 없습니다. 개발자도구를 닫은 뒤 새로고침해 주세요.';
+
+    panel.append(title, message);
+    overlay.append(panel);
+    return overlay;
+  };
+
+  const injectOverlayStyles = () => {
+    if (document.getElementById('devtools-block-style')) return;
+
+    const style = document.createElement('style');
+    style.id = 'devtools-block-style';
+    style.textContent = `
+      html[data-dev-tools-blocked="true"],
+      html[data-dev-tools-blocked="true"] body {
+        min-height: 100%;
+        margin: 0;
+        overflow: hidden;
+        background: #050307;
+      }
+
+      .devtools-block-overlay {
+        min-height: 100vh;
+        display: grid;
+        place-items: center;
+        padding: 24px;
+        color: #f8efe7;
+        background:
+          radial-gradient(circle at 50% 0%, rgba(245, 200, 66, 0.18), transparent 34%),
+          linear-gradient(135deg, #050307 0%, #13080d 52%, #050307 100%);
+        font-family: 'Noto Sans KR', system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+        text-align: center;
+      }
+
+      .devtools-block-panel {
+        max-width: 520px;
+        padding: 42px 32px;
+        border: 1px solid rgba(245, 200, 66, 0.35);
+        border-radius: 24px;
+        background: rgba(8, 5, 9, 0.86);
+        box-shadow: 0 24px 80px rgba(0, 0, 0, 0.45);
+      }
+
+      .devtools-block-panel h1 {
+        margin: 0 0 16px;
+        color: #f5c842;
+        font-size: clamp(1.6rem, 5vw, 2.4rem);
+        line-height: 1.25;
+      }
+
+      .devtools-block-panel p {
+        margin: 0;
+        color: rgba(248, 239, 231, 0.78);
+        font-size: 1rem;
+        line-height: 1.8;
+      }
+    `;
+    document.head.append(style);
+  };
+
+  const block = () => {
+    if (state.isDevToolsBlocked) return true;
+
+    recordBlockedState();
+    injectOverlayStyles();
+
+    if (document.body) {
+      document.body.replaceChildren(createOverlay());
+    }
+
+    return true;
+  };
+
+  return {
+    get isDevToolsBlocked() {
+      return state.isDevToolsBlocked;
+    },
+    block,
+    detectAndBlock: () => (isDetected() ? block() : false),
+  };
+})();
+
+if (!devToolsBlockGuard.detectAndBlock()) {
+const detectDevToolsOpening = () => {
+  devToolsBlockGuard.detectAndBlock();
+};
+
+window.addEventListener('resize', detectDevToolsOpening);
+window.addEventListener('focus', detectDevToolsOpening);
+setInterval(detectDevToolsOpening, 1000);
+
 /* ── Custom Cursor ── */
 const cur = document.getElementById('cursor');
 const ring = document.getElementById('cursor-ring');
@@ -237,3 +364,5 @@ const initKakaoMap = () => {
 };
 
 initKakaoMap();
+
+}
