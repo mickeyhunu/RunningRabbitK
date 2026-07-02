@@ -110,8 +110,8 @@ const formatReviewDate = value => {
 };
 
 const createReviewCard = review => {
-  const card = document.createElement('a');
-  card.className = 'community-review-card';
+  const card = document.createElement('article');
+  card.className = 'rv reveal in';
   card.href = normalizeReviewUrl(review.url);
   card.target = '_blank';
   card.rel = 'noopener noreferrer';
