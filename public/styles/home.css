@@ -772,6 +772,20 @@
       text-align: center; font-size: .82rem; line-height: 1.7;
     }
     .live-info-status.is-hidden { display: none; }
+    .live-info-cta { display: flex; justify-content: center; margin: -8px 0 30px; }
+    .live-info-link {
+      position: relative; display: inline-flex; align-items: center; justify-content: center;
+      min-width: 220px; padding: 14px 28px; border: 1px solid rgba(245,200,66,.42); border-radius: 2px;
+      background: linear-gradient(135deg, rgba(245,200,66,.12), rgba(232,25,60,.12));
+      color: var(--gold-l); font-size: .86rem; font-weight: 500; letter-spacing: .12em; text-decoration: none;
+      box-shadow: 0 12px 34px rgba(0,0,0,.24); transition: transform .2s, border-color .2s, box-shadow .2s, background .2s;
+    }
+    .live-info-link::after { content: '↗'; margin-left: 10px; color: var(--ruby-g); font-size: .9rem; }
+    .live-info-link:hover {
+      transform: translateY(-2px); border-color: var(--gold);
+      background: linear-gradient(135deg, rgba(245,200,66,.18), rgba(232,25,60,.18));
+      box-shadow: 0 16px 42px rgba(232,25,60,.2);
+    }
     .live-info-grid { display: grid; grid-template-columns: minmax(280px, .9fr) minmax(320px, 1.1fr); gap: 18px; align-items: stretch; }
     .live-card {
       position: relative; overflow: hidden; padding: 32px;
