@@ -408,7 +408,7 @@ const renderLiveEntries = data => {
   }
 
   liveEntryList.innerHTML = entries.map(entry => `
-    <span class="entry-chip">${escapeLiveHtml(entry.workerName || '이름 미상')}<small>${escapeLiveHtml(entry.insertCount ?? 0)}</small></span>
+    <span class="entry-chip">${escapeLiveHtml(entry.workerName || '이름 미상')}</span>
   `).join('');
 };
 

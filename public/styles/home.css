@@ -799,7 +799,6 @@
     .room-type-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; }
     .room-type { display: flex; justify-content: space-between; gap: 8px; color: var(--cream); font-size: .82rem; }
     .room-type strong { color: var(--ivory); }
-    .live-entry-desc { color: var(--smoke); font-size: .84rem; line-height: 1.8; margin: -8px 0 18px; }
     .entry-list { display: flex; flex-wrap: wrap; gap: 8px; max-height: 430px; overflow: auto; padding-right: 4px; }
     .entry-chip { border: 1px solid rgba(245,200,66,.18); background: rgba(245,200,66,.045); color: var(--cream); padding: 8px 11px; font-size: .8rem; line-height: 1; }
     .entry-chip small { color: rgba(245,200,66,.72); margin-left: 5px; }
