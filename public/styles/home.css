@@ -113,8 +113,18 @@
       content: ''; position: absolute; bottom: -4px; left: 0; width: 0; height: 1px;
       background: var(--gold); transition: width .3s;
     }
-    .subnav-links a:hover { color: var(--gold-l); }
-    .subnav-links a:hover::after { width: 100%; }
+    .subnav-links a:hover,
+    .subnav-links a.is-active,
+    .subnav-links a[aria-current="true"] {
+      color: var(--gold-l);
+      text-shadow: 0 0 14px rgba(245,200,66,.35);
+    }
+    .subnav-links a:hover::after,
+    .subnav-links a.is-active::after,
+    .subnav-links a[aria-current="true"]::after {
+      width: 100%;
+      box-shadow: 0 0 10px rgba(245,200,66,.65);
+    }
    
     /* ─── HERO ─── */
     .hero {
