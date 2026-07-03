@@ -191,6 +191,49 @@ const PARTICLES = Array.from({length: 55}, () => ({
   requestAnimationFrame(draw);
 })();
 
+
+/* ── Sub Navigation Scroll Spy ── */
+const subnavLinks = Array.from(document.querySelectorAll('.subnav-links a[href^="#"]'));
+const subnavSections = subnavLinks
+  .map(link => {
+    const id = link.getAttribute('href').slice(1);
+    return { link, section: document.getElementById(id) };
+  })
+  .filter(item => item.section);
+
+const setActiveSubnavLink = activeId => {
+  subnavSections.forEach(({ link, section }) => {
+    const isActive = section.id === activeId;
+    link.classList.toggle('is-active', isActive);
+    if (isActive) {
+      link.setAttribute('aria-current', 'true');
+    } else {
+      link.removeAttribute('aria-current');
+    }
+  });
+};
+
+if (subnavSections.length) {
+  const getCurrentSectionId = () => {
+    const viewportAnchor = window.scrollY + Math.max(140, window.innerHeight * 0.32);
+    const current = subnavSections.reduce((active, item) => (
+      item.section.offsetTop <= viewportAnchor ? item : active
+    ), subnavSections[0]);
+
+    return current.section.id;
+  };
+
+  const updateActiveSubnavLink = () => setActiveSubnavLink(getCurrentSectionId());
+
+  subnavLinks.forEach(link => {
+    link.addEventListener('click', () => setActiveSubnavLink(link.getAttribute('href').slice(1)));
+  });
+
+  window.addEventListener('scroll', updateActiveSubnavLink, { passive: true });
+  window.addEventListener('resize', updateActiveSubnavLink);
+  updateActiveSubnavLink();
+}
+
 /* ── Scroll Reveal ── */
 const revealObs = new IntersectionObserver(entries => {
   entries.forEach((e, i) => {
