@@ -816,6 +816,7 @@
     .live-metrics { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; margin-bottom: 24px; }
     .live-metric { padding: 22px 18px; border: 1px solid rgba(245,200,66,.14); background: rgba(8,5,9,.6); text-align: center; }
     .live-metric-value { display: block; color: var(--gold-l); font-family: 'Playfair Display', serif; font-size: 3rem; font-weight: 900; line-height: 1; }
+    .live-metric-value.is-relaxed { font-size: 2rem; white-space: nowrap; }
     .live-metric-label { display: block; margin-top: 8px; color: var(--smoke); font-size: .72rem; letter-spacing: .12em; }
     .room-detail-list { display: grid; gap: 12px; }
     .room-floor { border: 1px solid rgba(245,200,66,.12); background: rgba(245,200,66,.035); padding: 16px; }
