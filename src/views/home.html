@@ -131,7 +131,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400;1,700&family=Noto+Serif+KR:wght@400;700;900&family=Noto+Sans+KR:wght@300;400;500&family=Cinzel+Decorative:wght@400;700;900&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="/styles/home.css?v=community-reviews-article-link" />
+  <link rel="stylesheet" href="/styles/home.css?v=live-info-section" />
 </head>
 <body data-rsssl=1 data-burst_id="6" data-burst_type="page">
 
@@ -152,6 +152,7 @@
   <ul class="subnav-links">
     <li><a href="#about">소개</a></li>
     <li><a href="#pricing">가격</a></li>
+    <li><a href="#live-info">실시간</a></li>
     <li><a href="#features">시설</a></li>
     <li><a href="#reviews">후기</a></li>
     <li><a href="#location">위치</a></li>
@@ -364,6 +365,64 @@
       <p>💡 가격은 인원, 시간대, 코스 구성에 따라 달라집니다.<br />
       대표 <strong>지예은</strong>에게 직접 문의하시면 <strong>가장 합리적인 조건</strong>으로 안내해드립니다.<br />
       <a href="tel:010-5733-8710" style="color:var(--gold);font-size:1.1em;font-weight:700;text-decoration:none;">📞 010-5733-8710</a></p>
+    </div>
+  </div>
+</section>
+
+<!-- ──── LIVE INFO ──── -->
+<section class="live-info" id="live-info" aria-labelledby="live-info-h2">
+  <div class="container">
+    <div class="live-info-header reveal">
+      <p class="sec-label">Live Signal</p>
+      <h2 class="sec-title" id="live-info-h2">실시간 <em>정보</em></h2>
+      <div class="ornament" style="justify-content:center">
+        <span class="orn-diamond"></span>
+        <span class="orn-line"></span>
+      </div>
+      <p class="sec-sub">룸 현황과 엔트리 정보를 실시간 API 기준으로 불러와 안내합니다.<br />현장 상황은 변동될 수 있으니 예약 전 대표에게 한 번 더 확인해 주세요.</p>
+    </div>
+
+    <div class="live-info-status reveal" id="live-info-status" role="status" aria-live="polite">실시간 정보를 불러오는 중입니다.</div>
+
+    <div class="live-info-grid reveal" aria-label="달토 실시간 룸 및 엔트리 정보">
+      <article class="live-card live-room-card">
+        <div class="live-card-head">
+          <div>
+            <p class="live-card-label">Room</p>
+            <h3>룸 · 웨이팅 현황</h3>
+          </div>
+          <span class="live-pill" id="live-room-updated">업데이트 확인 중</span>
+        </div>
+
+        <div class="live-metrics">
+          <div class="live-metric">
+            <span class="live-metric-value" id="live-room-count">-</span>
+            <span class="live-metric-label">이용 가능 룸</span>
+          </div>
+          <div class="live-metric">
+            <span class="live-metric-value" id="live-wait-count">-</span>
+            <span class="live-metric-label">웨이팅</span>
+          </div>
+        </div>
+
+        <div class="room-detail-list" id="live-room-detail">
+          <p class="live-empty">룸 상세 정보를 불러오는 중입니다.</p>
+        </div>
+      </article>
+
+      <article class="live-card live-entry-card">
+        <div class="live-card-head">
+          <div>
+            <p class="live-card-label">Entry</p>
+            <h3>오늘 엔트리</h3>
+          </div>
+          <span class="live-pill" id="live-entry-count">집계 중</span>
+        </div>
+        <p class="live-entry-desc">엔트리 명단은 최신 등록 순서와 API 집계 기준으로 표시됩니다.</p>
+        <div class="entry-list" id="live-entry-list">
+          <p class="live-empty">엔트리 정보를 불러오는 중입니다.</p>
+        </div>
+      </article>
     </div>
   </div>
 </section>
@@ -585,7 +644,7 @@
 
 <!-- ──── SCRIPTS ──── -->
 <script src="//dapi.kakao.com/v2/maps/sdk.js?appkey=47dd095ebdfd7af529ea17e707179aa0&autoload=false&libraries=services"></script>
-<script src="/scripts/home.js?v=kakao-map-community-reviews"></script>
+<script src="/scripts/home.js?v=live-info-section"></script>
 </body>
 </html>
 

@@ -321,6 +321,124 @@ const loadCommunityReviews = async () => {
 
 loadCommunityReviews();
 
+
+/* ── Live Signal Info ── */
+const liveInfoStatus = document.getElementById('live-info-status');
+const liveRoomCount = document.getElementById('live-room-count');
+const liveWaitCount = document.getElementById('live-wait-count');
+const liveRoomUpdated = document.getElementById('live-room-updated');
+const liveRoomDetail = document.getElementById('live-room-detail');
+const liveEntryCount = document.getElementById('live-entry-count');
+const liveEntryList = document.getElementById('live-entry-list');
+const liveSignalBaseUrl = 'https://nightmens.com/api/live/signal';
+
+const formatLiveDateTime = value => {
+  if (!value) return '시간 확인 중';
+  const normalized = String(value).replace(' ', 'T');
+  const date = new Date(normalized);
+  if (Number.isNaN(date.getTime())) return value;
+  return new Intl.DateTimeFormat('ko-KR', {
+    month: '2-digit', day: '2-digit', hour: '2-digit', minute: '2-digit', hour12: false,
+  }).format(date);
+};
+
+const escapeLiveHtml = value => String(value ?? '').replace(/[&<>"']/g, char => ({
+  '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;',
+}[char]));
+
+const fetchLiveSignal = async (type, limit) => {
+  const params = new URLSearchParams({ storeNo: '1', type, limit: String(limit) });
+  const response = await fetch(`${liveSignalBaseUrl}?${params.toString()}`);
+  if (!response.ok) throw new Error(`${type} 실시간 정보 요청 실패`);
+  return response.json();
+};
+
+const renderRoomDetail = roomDetailValue => {
+  if (!liveRoomDetail) return;
+
+  let detail = roomDetailValue;
+  if (typeof detail === 'string') {
+    try {
+      detail = JSON.parse(detail);
+    } catch (_error) {
+      liveRoomDetail.innerHTML = `<p class="live-empty">${escapeLiveHtml(detail)}</p>`;
+      return;
+    }
+  }
+
+  if (!detail || typeof detail !== 'object') {
+    liveRoomDetail.innerHTML = '<p class="live-empty">룸 상세 정보가 없습니다.</p>';
+    return;
+  }
+
+  const floors = Object.entries(detail).map(([floorName, rooms]) => {
+    const roomItems = Object.entries(rooms || {}).map(([roomType, count]) => `
+      <div class="room-type"><span>${escapeLiveHtml(roomType)}</span><strong>${escapeLiveHtml(count)}</strong></div>
+    `).join('');
+
+    return `
+      <div class="room-floor">
+        <p class="room-floor-title">${escapeLiveHtml(floorName)}</p>
+        <div class="room-type-grid">${roomItems}</div>
+      </div>
+    `;
+  }).join('');
+
+  liveRoomDetail.innerHTML = floors || '<p class="live-empty">룸 상세 정보가 없습니다.</p>';
+};
+
+const renderLiveRoom = data => {
+  const latestRoom = Array.isArray(data.content) ? data.content[0] : null;
+  if (!latestRoom) throw new Error('룸 현황 데이터 없음');
+
+  if (liveRoomCount) liveRoomCount.textContent = latestRoom.roomInfo ?? '-';
+  if (liveWaitCount) liveWaitCount.textContent = latestRoom.waitInfo ?? '-';
+  if (liveRoomUpdated) liveRoomUpdated.textContent = `기준 ${formatLiveDateTime(latestRoom.snapshotAt || latestRoom.updatedAt)}`;
+  renderRoomDetail(latestRoom.roomDetail);
+};
+
+const renderLiveEntries = data => {
+  const entries = Array.isArray(data.content) ? data.content : [];
+  if (liveEntryCount) liveEntryCount.textContent = `총 ${data.totalElements ?? entries.length}명`;
+
+  if (!liveEntryList) return;
+  if (!entries.length) {
+    liveEntryList.innerHTML = '<p class="live-empty">오늘 등록된 엔트리가 없습니다.</p>';
+    return;
+  }
+
+  liveEntryList.innerHTML = entries.map(entry => `
+    <span class="entry-chip">${escapeLiveHtml(entry.workerName || '이름 미상')}<small>${escapeLiveHtml(entry.insertCount ?? 0)}</small></span>
+  `).join('');
+};
+
+const loadLiveInfo = async () => {
+  if (!liveInfoStatus && !liveRoomDetail && !liveEntryList) return;
+
+  try {
+    const [roomData, entryData] = await Promise.all([
+      fetchLiveSignal('room', 1),
+      fetchLiveSignal('entry', 200),
+    ]);
+
+    renderLiveRoom(roomData);
+    renderLiveEntries(entryData);
+
+    if (liveInfoStatus) {
+      liveInfoStatus.textContent = '실시간 정보를 업데이트했습니다.';
+      liveInfoStatus.classList.add('is-hidden');
+    }
+  } catch (error) {
+    if (liveInfoStatus) {
+      liveInfoStatus.textContent = '실시간 정보를 불러오지 못했습니다. 잠시 후 다시 확인해 주세요.';
+      liveInfoStatus.classList.remove('is-hidden');
+    }
+    console.error(error);
+  }
+};
+
+loadLiveInfo();
+
 /* ── Kakao Location Map ── */
 const initKakaoMap = () => {
   const mapElement = document.getElementById('kakao-map');
