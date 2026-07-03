@@ -387,11 +387,17 @@ const renderRoomDetail = roomDetailValue => {
   liveRoomDetail.innerHTML = floors || '<p class="live-empty">룸 상세 정보가 없습니다.</p>';
 };
 
+const isRelaxedLiveRoomCount = value => String(value ?? '').trim() === '999';
+const formatLiveRoomCount = value => (isRelaxedLiveRoomCount(value) ? '여유' : (value ?? '-'));
+
 const renderLiveRoom = data => {
   const latestRoom = Array.isArray(data.content) ? data.content[0] : null;
   if (!latestRoom) throw new Error('룸 현황 데이터 없음');
 
-  if (liveRoomCount) liveRoomCount.textContent = latestRoom.roomInfo ?? '-';
+  if (liveRoomCount) {
+    liveRoomCount.textContent = formatLiveRoomCount(latestRoom.roomInfo);
+    liveRoomCount.classList.toggle('is-relaxed', isRelaxedLiveRoomCount(latestRoom.roomInfo));
+  }
   if (liveWaitCount) liveWaitCount.textContent = latestRoom.waitInfo ?? '-';
   if (liveRoomUpdated) liveRoomUpdated.textContent = `기준 ${formatLiveDateTime(latestRoom.snapshotAt || latestRoom.updatedAt)}`;
   renderRoomDetail(latestRoom.roomDetail);
