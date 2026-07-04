@@ -103,7 +103,18 @@
       background: linear-gradient(135deg, var(--gold-l), var(--gold), var(--gold-d));
       -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
     }
-    .subnav-links { display: flex; gap: 36px; list-style: none; }
+    .subnav-links {
+      display: flex; gap: 36px; list-style: none;
+      flex-wrap: nowrap;
+      max-width: 100%;
+      overflow-x: auto;
+      overflow-y: hidden;
+      white-space: nowrap;
+      -webkit-overflow-scrolling: touch;
+      scrollbar-width: none;
+    }
+    .subnav-links::-webkit-scrollbar { display: none; }
+    .subnav-links li { flex: 0 0 auto; }
     .subnav-links a {
       text-decoration: none; color: var(--smoke);
       font-size: .72rem; letter-spacing: .18em; text-transform: uppercase;
