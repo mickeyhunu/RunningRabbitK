@@ -441,7 +441,10 @@ const renderLiveRoom = data => {
     liveRoomCount.textContent = formatLiveRoomCount(latestRoom.roomInfo);
     liveRoomCount.classList.toggle('is-relaxed', isRelaxedLiveRoomCount(latestRoom.roomInfo));
   }
-  if (liveWaitCount) liveWaitCount.textContent = latestRoom.waitInfo ?? '-';
+  if (liveWaitCount) {
+    liveWaitCount.textContent = latestRoom.waitInfo ?? '-';
+    liveWaitCount.classList.toggle('is-relaxed', isRelaxedLiveRoomCount(latestRoom.roomInfo));
+  }
   if (liveRoomUpdated) liveRoomUpdated.textContent = `기준 ${formatLiveDateTime(latestRoom.snapshotAt || latestRoom.updatedAt)}`;
   renderRoomDetail(latestRoom.roomDetail);
 };
