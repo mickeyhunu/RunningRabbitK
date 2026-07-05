@@ -493,6 +493,18 @@
       padding: 110px 32px;
       background: var(--velvet);
     }
+    .seo-guide-hidden {
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      margin: -1px;
+      padding: 0;
+      overflow: hidden;
+      clip: rect(0 0 0 0);
+      clip-path: inset(50%);
+      border: 0;
+      white-space: normal;
+    }
     .feat-header { display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: end; margin-bottom: 56px; }
     .feat-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
     @media (max-width: 900px) { .feat-grid { grid-template-columns: 1fr 1fr; } }
