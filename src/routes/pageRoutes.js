@@ -4,6 +4,7 @@ import {
   renderHealth,
   renderHomePage,
   renderRobots,
+  renderSeoLandingPage,
   renderSitemap,
 } from "../controllers/pageController.js";
 
@@ -14,5 +15,6 @@ router.get("/sitemap.xml", renderSitemap);
 router.get("/robots.txt", renderRobots);
 router.get("/healthz", renderHealth);
 router.get("/api/community-reviews", renderCommunityReviews);
+router.get("/:slug", renderSeoLandingPage);
 
 export default router;

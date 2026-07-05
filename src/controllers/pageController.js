@@ -1,12 +1,45 @@
+import fs from "fs";
 import path from "path";
 import { fileURLToPath } from "url";
-import { siteMetadata, sitemapEntries } from "../config/seo.js";
+import { seoLandingPages, siteMetadata, sitemapEntries } from "../config/seo.js";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
+const homePagePath = path.join(__dirname, "../views/home.html");
 
 export const renderHomePage = (_req, res) => {
-  res.sendFile(path.join(__dirname, "../views/home.html"));
+  res.sendFile(homePagePath);
+};
+
+export const renderSeoLandingPage = (req, res, next) => {
+  const slug = req.params.slug;
+  const page = seoLandingPages.find((entry) => entry.slug === slug);
+
+  if (!page) {
+    next();
+    return;
+  }
+
+  const html = fs
+    .readFileSync(homePagePath, "utf8")
+    .replace(
+      /<title>.*?<\/title>/,
+      `<title>${page.title} | 강남달토 달리는토끼 공식 안내</title>`
+    )
+    .replace(
+      /<meta name="description" content=".*?" \/>/,
+      `<meta name="description" content="${page.description}" />`
+    )
+    .replace(
+      /<link rel="canonical" href=".*?" \/>/,
+      `<link rel="canonical" href="${siteMetadata.baseUrl}/${page.slug}" />`
+    )
+    .replace(
+      '<body data-rsssl=1 data-burst_id="6" data-burst_type="page">',
+      `<body data-rsssl=1 data-burst_id="6" data-burst_type="page" data-seo-page="${page.slug}">`
+    );
+
+  res.type("html").send(html);
 };
 
 export const renderSitemap = (_req, res) => {

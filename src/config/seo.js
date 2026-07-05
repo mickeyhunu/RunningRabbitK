@@ -1,11 +1,20 @@
 export const siteMetadata = {
   name: "강남 달리는토끼 공식 홈페이지 | Running Rabbit Official",
-  baseUrl: "https://runningrabbit.example.com",
+  baseUrl: "https://gangnamdalto.co.kr",
   language: "ko",
   description:
     "강남 달토 · 달리는토끼 공식 홈페이지. 프리미엄 라운지 & 카라오케 공간, 투명한 예약, 합법적이고 안전한 운영을 안내합니다.",
   keywords: [
+    "달토",
+    "강남달토",
     "강남 달토",
+    "러닝래빗",
+    "러닝레빗",
+    "달리는토끼",
+    "삼정호텔",
+    "달리는토끼 후기",
+    "달리는토끼 영업진",
+    "달리는토끼 주대",
     "강남 달리는토끼",
     "Running Rabbit",
     "프리미엄 라운지",
@@ -111,10 +120,26 @@ export const homeMeta = {
   },
 };
 
+export const seoLandingPages = [
+  { slug: "dalto", title: "달토", description: "달토 뜻, 강남달토 위치, 예약 방법을 공식 홈페이지에서 확인하세요." },
+  { slug: "gangnam-dalto", title: "강남달토", description: "강남달토 공식 안내: 역삼동 삼정호텔 지하 위치, 픽업, 예약, 시설 정보." },
+  { slug: "running-rabbit", title: "러닝래빗·러닝레빗", description: "러닝래빗·러닝레빗으로 검색하는 Running Rabbit 공식 안내 페이지입니다." },
+  { slug: "dalineun-tokki", title: "달리는토끼", description: "달리는토끼 공식 정보: 브랜드 소개, 위치, 후기, 영업 안내, 예약 상담." },
+  { slug: "samjeong-hotel", title: "삼정호텔 달토", description: "삼정호텔 지하 강남달토 위치와 교통, 주차, 발렛, 픽업 안내." },
+  { slug: "reviews", title: "달리는토끼 후기", description: "달리는토끼 후기 확인 시 가격, 응대, 룸 컨디션 등 핵심 체크포인트를 안내합니다." },
+  { slug: "staff", title: "달리는토끼 영업진", description: "달리는토끼 영업진 및 예약 담당 상담 채널을 안내합니다." },
+  { slug: "price", title: "달리는토끼 주대", description: "달리는토끼 주대는 인원, 시간대, 코스에 따라 달라지며 예약 전 상담으로 안내합니다." },
+];
+
 export const sitemapEntries = [
   {
     loc: siteMetadata.baseUrl,
     changefreq: "weekly",
     priority: "1.0",
   },
+  ...seoLandingPages.map((page) => ({
+    loc: `${siteMetadata.baseUrl}/${page.slug}`,
+    changefreq: "weekly",
+    priority: "0.8",
+  })),
 ];
