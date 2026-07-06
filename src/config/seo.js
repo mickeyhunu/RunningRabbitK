@@ -131,14 +131,18 @@ export const seoLandingPages = [
   { slug: "price", title: "달리는토끼 주대", description: "달리는토끼 주대는 인원, 시간대, 코스에 따라 달라지며 예약 전 상담으로 안내합니다." },
 ];
 
+export const sitemapLastModified = "2026-07-06";
+
 export const sitemapEntries = [
   {
-    loc: siteMetadata.baseUrl,
+    loc: `${siteMetadata.baseUrl}/`,
+    lastmod: sitemapLastModified,
     changefreq: "weekly",
     priority: "1.0",
   },
   ...seoLandingPages.map((page) => ({
     loc: `${siteMetadata.baseUrl}/${page.slug}`,
+    lastmod: sitemapLastModified,
     changefreq: "weekly",
     priority: "0.8",
   })),

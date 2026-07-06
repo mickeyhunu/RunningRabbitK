@@ -20,7 +20,14 @@ app.use(
   express.static(path.join(__dirname, "public"), {
     maxAge: "7d",
     etag: true,
-    setHeaders: (res) => {
+    setHeaders: (res, filePath) => {
+      const fileName = path.basename(filePath);
+
+      if (["robots.txt", "sitemap.xml"].includes(fileName)) {
+        res.setHeader("Cache-Control", "public, max-age=3600");
+        return;
+      }
+
       res.setHeader("Cache-Control", "public, max-age=604800, immutable");
     },
   })

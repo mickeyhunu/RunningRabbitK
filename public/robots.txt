@@ -1,0 +1,7 @@
+User-agent: *
+Allow: /
+Disallow: /api/
+Disallow: /healthz
+
+Host: https://gangnamdalto.co.kr
+Sitemap: https://gangnamdalto.co.kr/sitemap.xml
