@@ -42,21 +42,40 @@ export const renderSeoLandingPage = (req, res, next) => {
   res.type("html").send(html);
 };
 
+const escapeXml = (value) =>
+  String(value)
+    .replaceAll("&", "&amp;")
+    .replaceAll("<", "&lt;")
+    .replaceAll(">", "&gt;")
+    .replaceAll('"', "&quot;")
+    .replaceAll("'", "&apos;");
+
 export const renderSitemap = (_req, res) => {
   const xmlEntries = sitemapEntries
     .map(
-      (entry) => `  <url>\n    <loc>${entry.loc}</loc>\n    <changefreq>${entry.changefreq}</changefreq>\n    <priority>${entry.priority}</priority>\n  </url>`
+      (entry) => `  <url>\n    <loc>${escapeXml(entry.loc)}</loc>\n    <lastmod>${entry.lastmod}</lastmod>\n    <changefreq>${entry.changefreq}</changefreq>\n    <priority>${entry.priority}</priority>\n  </url>`
     )
     .join("\n");
 
-  const xml = `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n${xmlEntries}\n</urlset>`;
+  const xml = `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n${xmlEntries}\n</urlset>\n`;
+
+  res.set("Cache-Control", "public, max-age=3600");
   res.type("application/xml").send(xml);
 };
 
 export const renderRobots = (_req, res) => {
-  const robots = [`User-agent: *`, `Allow: /`, `Sitemap: ${siteMetadata.baseUrl}/sitemap.xml`].join(
-    "\n"
-  );
+  const robots = [
+    `User-agent: *`,
+    `Allow: /`,
+    `Disallow: /api/`,
+    `Disallow: /healthz`,
+    ``,
+    `Host: ${siteMetadata.baseUrl}`,
+    `Sitemap: ${siteMetadata.baseUrl}/sitemap.xml`,
+    ``,
+  ].join("\n");
+
+  res.set("Cache-Control", "public, max-age=3600");
   res.type("text/plain").send(robots);
 };
 
