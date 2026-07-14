@@ -1,6 +1,6 @@
 export const siteMetadata = {
   name: "강남 달리는토끼 공식 홈페이지 | Running Rabbit Official",
-  baseUrl: "https://gangnamdalto.co.kr",
+  baseUrl: "https://gangnamdaltokki.com",
   language: "ko",
   description:
     "강남 달토 · 달리는토끼 공식 홈페이지. 프리미엄 라운지 & 카라오케 공간, 투명한 예약, 합법적이고 안전한 운영을 안내합니다.",
