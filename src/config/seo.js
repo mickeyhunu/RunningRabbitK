@@ -3,7 +3,7 @@ export const siteMetadata = {
   baseUrl: "https://gangnamdaltokki.com",
   language: "ko",
   description:
-    "강남 달토 · 달리는토끼 공식 홈페이지. 프리미엄 라운지 & 카라오케 공간, 투명한 예약, 합법적이고 안전한 운영을 안내합니다.",
+    "강남 달토 · 달리는토끼 공식 홈페이지. 프리미엄 라운지 & 카라오케 공간, 투명한 예약, 합법적이고 안전한 운영, 달토출근부·달토엔트리·달토웨이팅·달토초이스톡 확인 동선을 안내합니다.",
   keywords: [
     "달토",
     "강남달토",
@@ -15,6 +15,12 @@ export const siteMetadata = {
     "달리는토끼 후기",
     "달리는토끼 영업진",
     "달리는토끼 주대",
+    "달토출근부",
+    "달토 엔트리",
+    "달토엔트리",
+    "달토웨이팅",
+    "달토 초이스톡",
+    "달토초이스톡",
     "강남 달리는토끼",
     "Running Rabbit",
     "프리미엄 라운지",
@@ -34,7 +40,7 @@ export const navigationLinks = [
 export const heroContent = {
   heading: "강남 달토 · 달리는토끼 공식 홈페이지",
   subheading:
-    "프리미엄 라운지 & 카라오케 브랜드 \"Running Rabbit\"의 공간, 예약, 운영 철학을 한눈에 확인하세요.",
+    "프리미엄 라운지 & 카라오케 브랜드 \"Running Rabbit\"의 공간, 예약, 운영 철학과 달토출근부·달토엔트리·달토웨이팅·달토초이스톡 확인 동선을 한눈에 확인하세요.",
   cta: { label: "예약·문의하기", href: "#contact" },
 };
 
@@ -98,7 +104,7 @@ export const sections = [
 export const homeMeta = {
   title: "강남 달토 · 달리는토끼 공식 홈페이지",
   description:
-    "Running Rabbit 공식 사이트에서 프리미엄 라운지 & 카라오케 공간, 예약 방법, 합법적 운영 정책을 확인하세요.",
+    "Running Rabbit 공식 사이트에서 프리미엄 라운지 공간, 예약 방법, 달토출근부·달토엔트리·달토웨이팅·달토초이스톡 확인 동선을 확인하세요.",
   canonical: `${siteMetadata.baseUrl}/`,
   openGraph: {
     type: "website",
@@ -129,6 +135,9 @@ export const seoLandingPages = [
   { slug: "reviews", title: "달리는토끼 후기", description: "달리는토끼 후기 확인 시 가격, 응대, 룸 컨디션 등 핵심 체크포인트를 안내합니다." },
   { slug: "staff", title: "달리는토끼 영업진", description: "달리는토끼 영업진 및 예약 담당 상담 채널을 안내합니다." },
   { slug: "price", title: "달리는토끼 주대", description: "달리는토끼 주대는 인원, 시간대, 코스에 따라 달라지며 예약 전 상담으로 안내합니다." },
+  { slug: "dalto-entry", title: "달토출근부·달토엔트리", description: "달토출근부와 달토엔트리 확인 동선, 오늘 출근 현황, 예약 전 체크포인트를 안내합니다." },
+  { slug: "dalto-waiting", title: "달토웨이팅", description: "달토웨이팅과 실시간 룸 현황을 확인하고 예약 전 대기 상황을 참고하세요." },
+  { slug: "dalto-choice-talk", title: "달토초이스톡", description: "달토초이스톡 확인 동선과 출근부·엔트리 기반 예약 상담 포인트를 안내합니다." },
 ];
 
 export const sitemapLastModified = "2026-07-15";
@@ -151,7 +160,7 @@ export const sitemapEntries = [
 export const rssFeedMetadata = {
   path: "/rss.xml",
   title: "강남달토 실시간 정보·후기 RSS",
-  description: "강남달토 달리는토끼 공식 사이트의 실시간 룸 현황, 출근부, 커뮤니티 후기 최신 업데이트입니다.",
+  description: "강남달토 달리는토끼 공식 사이트의 달토출근부, 달토엔트리, 달토웨이팅, 달토초이스톡 및 커뮤니티 후기 최신 업데이트입니다.",
   managingEditor: "Running Rabbit Official",
   ttlMinutes: 30,
 };
