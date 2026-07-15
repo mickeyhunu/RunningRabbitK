@@ -16,6 +16,8 @@ app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
+app.use("/", pageRouter);
+
 app.use(
   express.static(path.join(__dirname, "public"), {
     maxAge: "7d",
@@ -23,7 +25,7 @@ app.use(
     setHeaders: (res, filePath) => {
       const fileName = path.basename(filePath);
 
-      if (["robots.txt", "sitemap.xml"].includes(fileName)) {
+      if (["robots.txt", "sitemap.xml", "rss.xml"].includes(fileName)) {
         res.setHeader("Cache-Control", "public, max-age=3600");
         return;
       }
@@ -32,8 +34,6 @@ app.use(
     },
   })
 );
-
-app.use("/", pageRouter);
 
 app.use((req, res) => {
   res.status(404).json({ ok: false, message: "Not Found" });

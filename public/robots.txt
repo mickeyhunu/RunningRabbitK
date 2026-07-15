@@ -5,3 +5,4 @@ Disallow: /healthz
 
 Host: https://gangnamdaltokki.com
 Sitemap: https://gangnamdaltokki.com/sitemap.xml
+Sitemap: https://gangnamdaltokki.com/rss.xml

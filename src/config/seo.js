@@ -131,19 +131,27 @@ export const seoLandingPages = [
   { slug: "price", title: "달리는토끼 주대", description: "달리는토끼 주대는 인원, 시간대, 코스에 따라 달라지며 예약 전 상담으로 안내합니다." },
 ];
 
-export const sitemapLastModified = "2026-07-06";
+export const sitemapLastModified = "2026-07-15";
 
 export const sitemapEntries = [
   {
     loc: `${siteMetadata.baseUrl}/`,
     lastmod: sitemapLastModified,
-    changefreq: "weekly",
+    changefreq: "daily",
     priority: "1.0",
   },
   ...seoLandingPages.map((page) => ({
     loc: `${siteMetadata.baseUrl}/${page.slug}`,
     lastmod: sitemapLastModified,
-    changefreq: "weekly",
-    priority: "0.8",
+    changefreq: page.slug === "reviews" ? "daily" : "weekly",
+    priority: page.slug === "reviews" ? "0.9" : "0.8",
   })),
 ];
+
+export const rssFeedMetadata = {
+  path: "/rss.xml",
+  title: "강남달토 실시간 정보·후기 RSS",
+  description: "강남달토 달리는토끼 공식 사이트의 실시간 룸 현황, 출근부, 커뮤니티 후기 최신 업데이트입니다.",
+  managingEditor: "Running Rabbit Official",
+  ttlMinutes: 30,
+};
