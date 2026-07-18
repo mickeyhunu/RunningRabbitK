@@ -149,9 +149,11 @@
       content: '';
       position: absolute; inset: 0; z-index: -1;
       background:
+        linear-gradient(to bottom, rgba(8,5,9,.45) 0%, rgba(8,5,9,.72) 44%, var(--ink) 100%),
         radial-gradient(ellipse 55% 45% at 50% 50%, rgba(232,25,60,.18) 0%, transparent 65%),
         radial-gradient(ellipse 30% 40% at 20% 80%, rgba(245,200,66,.12) 0%, transparent 60%),
         radial-gradient(ellipse 25% 30% at 80% 15%, rgba(245,200,66,.1) 0%, transparent 55%),
+        url('/images/dalto/달토입구.png') top center / min(1180px, 100vw) auto no-repeat,
         var(--ink);
     }
 
@@ -509,6 +511,7 @@
     .feat-header { display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: end; margin-bottom: 56px; }
     .feat-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
     @media (max-width: 900px) { .feat-grid { grid-template-columns: 1fr 1fr; } }
+    @media (max-width: 640px) { .fc-photo { height: 150px; margin: -16px -8px 22px; } }
 
     .fc {
       position: relative; overflow: hidden;
@@ -530,6 +533,25 @@
       font-size: 3.5rem; font-weight: 900; line-height: 1;
       color: rgba(232,25,60,.12); position: absolute; top: 16px; right: 20px;
     }
+    .fc-photo {
+      position: relative;
+      height: 180px;
+      margin: -18px -10px 24px;
+      border: 1px solid rgba(245,200,66,.14);
+      overflow: hidden;
+      background: rgba(255,255,255,.035);
+    }
+    .fc-photo::after {
+      content: '';
+      position: absolute; inset: 0;
+      background: linear-gradient(to top, rgba(13,2,8,.72), transparent 55%);
+      pointer-events: none;
+    }
+    .fc-photo img {
+      width: 100%; height: 100%; object-fit: cover; display: block;
+      transition: transform .45s ease;
+    }
+    .fc:hover .fc-photo img { transform: scale(1.06); }
     .fc-icon { font-size: 1.8rem; margin-bottom: 18px; }
     .fc-title {
       font-family: 'Playfair Display', serif;
