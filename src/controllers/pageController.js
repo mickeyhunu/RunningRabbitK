@@ -6,9 +6,21 @@ import { rssFeedMetadata, seoLandingPages, siteMetadata, sitemapEntries } from "
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 const homePagePath = path.join(__dirname, "../views/home.html");
+const homeCssPath = path.join(__dirname, "../../public/styles/home.css");
+const HOME_CSS_VERSION_TOKEN = "__HOME_CSS_VERSION__";
+
+const getFileVersion = (filePath) => {
+  const { mtimeMs } = fs.statSync(filePath);
+  return Math.floor(mtimeMs).toString(36);
+};
+
+const renderHomeHtml = () =>
+  fs
+    .readFileSync(homePagePath, "utf8")
+    .replaceAll(HOME_CSS_VERSION_TOKEN, getFileVersion(homeCssPath));
 
 export const renderHomePage = (_req, res) => {
-  res.sendFile(homePagePath);
+  res.type("html").send(renderHomeHtml());
 };
 
 export const renderSeoLandingPage = (req, res, next) => {
@@ -20,8 +32,7 @@ export const renderSeoLandingPage = (req, res, next) => {
     return;
   }
 
-  const html = fs
-    .readFileSync(homePagePath, "utf8")
+  const html = renderHomeHtml()
     .replace(
       /<title>.*?<\/title>/,
       `<title>${page.title} | 강남달토 달리는토끼 공식 안내</title>`
