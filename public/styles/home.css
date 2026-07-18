@@ -173,6 +173,30 @@
       font-size: .6rem; letter-spacing: .3em; color: var(--gold);
     }
 
+    .hero-entrance-card {
+      width: min(440px, 78vw);
+      margin: 0 auto 24px;
+      padding: 8px;
+      border: 1px solid rgba(245,200,66,.28);
+      border-radius: 20px;
+      background:
+        linear-gradient(135deg, rgba(245,200,66,.14), rgba(232,25,60,.08)),
+        rgba(8,5,9,.52);
+      box-shadow:
+        0 24px 70px rgba(0,0,0,.45),
+        0 0 44px rgba(232,25,60,.16);
+      overflow: hidden;
+      animation: riseIn .9s .05s ease both;
+    }
+    .hero-entrance-card img {
+      display: block;
+      width: 100%;
+      aspect-ratio: 16 / 9;
+      object-fit: cover;
+      border-radius: 14px;
+      filter: saturate(1.06) contrast(1.04);
+    }
+
     .hero-kicker {
       font-size: .72rem; letter-spacing: .25em; color: var(--ruby-g);
       text-transform: uppercase; margin-bottom: 14px;
