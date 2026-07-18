@@ -191,7 +191,7 @@
     .hero-entrance-card img {
       display: block;
       width: 100%;
-      aspect-ratio: 16 / 9;
+      aspect-ratio: 16 / 12;
       object-fit: cover;
       border-radius: 14px;
       filter: saturate(1.06) contrast(1.04);
