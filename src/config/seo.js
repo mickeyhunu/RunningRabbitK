@@ -127,20 +127,103 @@ export const homeMeta = {
 };
 
 export const seoLandingPages = [
-  { slug: "dalto", title: "달토", description: "달토 뜻, 강남달토 위치, 예약 방법을 공식 홈페이지에서 확인하세요." },
-  { slug: "gangnam-dalto", title: "강남달토", description: "강남달토 공식 안내: 역삼동 삼정호텔 지하 위치, 픽업, 예약, 시설 정보." },
-  { slug: "running-rabbit", title: "러닝래빗·러닝레빗", description: "러닝래빗·러닝레빗으로 검색하는 Running Rabbit 공식 안내 페이지입니다." },
-  { slug: "dalineun-tokki", title: "달리는토끼", description: "달리는토끼 공식 정보: 브랜드 소개, 위치, 후기, 영업 안내, 예약 상담." },
-  { slug: "samjeong-hotel", title: "삼정호텔 달토", description: "삼정호텔 지하 강남달토 위치와 교통, 주차, 발렛, 픽업 안내." },
-  { slug: "reviews", title: "달리는토끼 후기", description: "달리는토끼 후기 확인 시 가격, 응대, 룸 컨디션 등 핵심 체크포인트를 안내합니다." },
-  { slug: "staff", title: "달리는토끼 영업진", description: "달리는토끼 영업진 및 예약 담당 상담 채널을 안내합니다." },
-  { slug: "price", title: "달리는토끼 주대", description: "달리는토끼 주대는 인원, 시간대, 코스에 따라 달라지며 예약 전 상담으로 안내합니다." },
-  { slug: "dalto-entry", title: "달토출근부·달토엔트리", description: "달토출근부와 달토엔트리 확인 동선, 오늘 출근 현황, 예약 전 체크포인트를 안내합니다." },
-  { slug: "dalto-waiting", title: "달토웨이팅", description: "달토웨이팅과 실시간 룸 현황을 확인하고 예약 전 대기 상황을 참고하세요." },
-  { slug: "dalto-choice-talk", title: "달토초이스톡", description: "달토초이스톡 확인 동선과 출근부·엔트리 기반 예약 상담 포인트를 안내합니다." },
+  {
+    slug: "dalto",
+    title: "달토",
+    description: "달토 뜻, 강남달토 위치, 예약 방법을 공식 홈페이지에서 확인하세요.",
+    keywords: ["달토", "달토 뜻", "달토 예약", "달토 위치", "달토 공식"],
+  },
+  {
+    slug: "gangnam-dalto",
+    title: "강남달토",
+    description: "강남달토 공식 안내: 역삼동 삼정호텔 지하 위치, 픽업, 예약, 시설 정보.",
+    keywords: ["강남달토", "강남 달토", "강남달토 예약", "강남달토 위치", "강남달토 픽업"],
+  },
+  {
+    slug: "running-rabbit",
+    title: "러닝래빗·러닝레빗",
+    description: "러닝래빗·러닝레빗으로 검색하는 Running Rabbit 공식 안내 페이지입니다.",
+    keywords: ["러닝래빗", "러닝레빗", "런닝래빗", "런닝레빗", "Running Rabbit"],
+  },
+  {
+    slug: "dalineun-tokki",
+    title: "달리는토끼",
+    description: "달리는토끼 공식 정보: 브랜드 소개, 위치, 후기, 영업 안내, 예약 상담.",
+    keywords: ["달리는토끼", "강남 달리는토끼", "달리는토끼 예약", "달리는토끼 영업", "달리는토끼 공식"],
+  },
+  {
+    slug: "samjeong-hotel",
+    title: "삼정호텔 달토",
+    description: "삼정호텔 지하 강남달토 위치와 교통, 주차, 발렛, 픽업 안내.",
+    keywords: ["삼정호텔", "삼정호텔 달토", "삼정호텔 가라오케", "역삼동 삼정호텔", "삼정호텔 하이퍼블릭"],
+  },
+  {
+    slug: "reviews",
+    title: "달리는토끼 후기",
+    description: "달리는토끼 후기 확인 시 가격, 응대, 룸 컨디션 등 핵심 체크포인트를 안내합니다.",
+    keywords: ["달리는토끼 후기", "달토 후기", "강남달토 후기", "러닝래빗 후기", "하이퍼블릭 후기"],
+  },
+  {
+    slug: "staff",
+    title: "달리는토끼 영업진",
+    description: "달리는토끼 영업진 및 예약 담당 상담 채널을 안내합니다.",
+    keywords: ["달리는토끼 영업진", "달토 영업진", "강남달토 상담", "달토 담당", "달토 예약 상담"],
+  },
+  {
+    slug: "price",
+    title: "달리는토끼 주대",
+    description: "달리는토끼 주대는 인원, 시간대, 코스에 따라 달라지며 예약 전 상담으로 안내합니다.",
+    keywords: ["달리는토끼 주대", "달토 가격", "달토 주대", "강남달토 가격", "강남 하이퍼블릭 가격"],
+  },
+  {
+    slug: "dalto-entry",
+    title: "달토출근부·달토엔트리",
+    description: "달토출근부와 달토엔트리 확인 동선, 오늘 출근 현황, 예약 전 체크포인트를 안내합니다.",
+    keywords: ["달토출근부", "달토 엔트리", "달토엔트리", "강남달토 출근부", "달토 오늘 출근"],
+  },
+  {
+    slug: "dalto-waiting",
+    title: "달토웨이팅",
+    description: "달토웨이팅과 실시간 룸 현황을 확인하고 예약 전 대기 상황을 참고하세요.",
+    keywords: ["달토웨이팅", "달토 대기", "달토 룸현황", "강남달토 웨이팅", "달토 실시간"],
+  },
+  {
+    slug: "dalto-choice-talk",
+    title: "달토초이스톡",
+    description: "달토초이스톡 확인 동선과 출근부·엔트리 기반 예약 상담 포인트를 안내합니다.",
+    keywords: ["달토초이스톡", "달토 초이스톡", "강남달토 초이스톡", "달토 초이스", "달토 상담톡"],
+  },
+  {
+    slug: "gangnam-hyperpublic",
+    title: "강남 하이퍼블릭",
+    description: "강남 하이퍼블릭 검색자를 위한 달토 공식 안내: 위치, 예약, 룸 시설, 픽업 정보를 확인하세요.",
+    keywords: ["강남 하이퍼블릭", "강남 하이퍼블릭 가라오케", "역삼동 하이퍼블릭", "하이퍼블릭 예약", "강남 대형 하이퍼블릭"],
+  },
+  {
+    slug: "gangnam-karaoke",
+    title: "강남 가라오케",
+    description: "강남 가라오케와 역삼동 룸 예약을 찾는 고객을 위한 달토 시설·가격·위치 안내입니다.",
+    keywords: ["강남 가라오케", "역삼동 가라오케", "삼정호텔 가라오케", "강남 룸 예약", "강남 프리미엄 가라오케"],
+  },
+  {
+    slug: "yeoksam-karaoke",
+    title: "역삼동 가라오케",
+    description: "역삼동 가라오케 검색 시 참고할 수 있는 삼정호텔 지하 달토 위치·예약·픽업 안내입니다.",
+    keywords: ["역삼동 가라오케", "역삼 가라오케", "역삼동 룸", "역삼동 달토", "역삼동 하이퍼블릭"],
+  },
+  {
+    slug: "gangnam-pickup",
+    title: "강남 무료픽업",
+    description: "강남 전 지역 예약 고객 무료픽업과 발렛파킹 이용 동선을 달토 공식 홈페이지에서 확인하세요.",
+    keywords: ["강남 무료픽업", "달토 픽업", "강남달토 픽업", "강남 발렛파킹", "삼정호텔 발렛"],
+  },
 ];
 
-export const sitemapLastModified = "2026-07-15";
+export const seoKeywordHub = Array.from(
+  new Set([...siteMetadata.keywords, ...seoLandingPages.flatMap((page) => page.keywords ?? [page.title])])
+);
+
+export const sitemapLastModified = "2026-07-19";
 
 export const sitemapEntries = [
   {
