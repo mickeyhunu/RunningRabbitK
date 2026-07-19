@@ -1,7 +1,7 @@
 import fs from "fs";
 import path from "path";
 import { fileURLToPath } from "url";
-import { rssFeedMetadata, seoLandingPages, siteMetadata, sitemapEntries } from "../config/seo.js";
+import { rssFeedMetadata, seoKeywordHub, seoLandingPages, siteMetadata, sitemapEntries } from "../config/seo.js";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -18,6 +18,16 @@ const renderHomeHtml = () =>
   fs
     .readFileSync(homePagePath, "utf8")
     .replaceAll(HOME_CSS_VERSION_TOKEN, getFileVersion(homeCssPath));
+
+
+const escapeHtmlAttribute = (value) =>
+  String(value)
+    .replaceAll("&", "&amp;")
+    .replaceAll('"', "&quot;")
+    .replaceAll("<", "&lt;")
+    .replaceAll(">", "&gt;");
+
+const buildSeoKeywords = (page) => Array.from(new Set([...(page.keywords ?? []), ...seoKeywordHub])).join(", ");
 
 export const renderHomePage = (_req, res) => {
   res.type("html").send(renderHomeHtml());
@@ -39,7 +49,31 @@ export const renderSeoLandingPage = (req, res, next) => {
     )
     .replace(
       /<meta name="description" content=".*?" \/>/,
-      `<meta name="description" content="${page.description}" />`
+      `<meta name="description" content="${escapeHtmlAttribute(page.description)}" />`
+    )
+    .replace(
+      /<meta name="keywords" content=".*?" \/>/,
+      `<meta name="keywords" content="${escapeHtmlAttribute(buildSeoKeywords(page))}" />`
+    )
+    .replace(
+      /<meta property="og:title" content=".*?" \/>/,
+      `<meta property="og:title" content="${escapeHtmlAttribute(page.title)} | 강남달토 달리는토끼 공식 안내" />`
+    )
+    .replace(
+      /<meta property="og:description" content=".*?" \/>/,
+      `<meta property="og:description" content="${escapeHtmlAttribute(page.description)}" />`
+    )
+    .replace(
+      /<meta property="og:url" content=".*?" \/>/,
+      `<meta property="og:url" content="${siteMetadata.baseUrl}/${page.slug}" />`
+    )
+    .replace(
+      /<meta name="twitter:title" content=".*?" \/>/,
+      `<meta name="twitter:title" content="${escapeHtmlAttribute(page.title)} | 강남달토 달리는토끼 공식 안내" />`
+    )
+    .replace(
+      /<meta name="twitter:description" content=".*?" \/>/,
+      `<meta name="twitter:description" content="${escapeHtmlAttribute(page.description)}" />`
     )
     .replace(
       /<link rel="canonical" href=".*?" \/>/,
